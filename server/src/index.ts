@@ -6,6 +6,14 @@ import path from 'path'
 import socketIo from 'socket.io'
 import config from './config'
 
+interface User {
+  id: string
+  name: string
+  profile_image_url: string
+  username: string
+  verified: boolean
+}
+
 interface Tweet {
   data: {
     author_id: string
@@ -16,13 +24,7 @@ interface Tweet {
     text: string
   }
   includes: {
-    users: {
-      id: string
-      name: string
-      profile_image_url: string
-      username: string
-      verified: boolean
-    }
+    users: User[]
   }
 }
 
@@ -64,8 +66,13 @@ const getTweetSamples = async () => {
   // TODO: Handle disconnections
 }
 
+let receivedTweets = 0
 const forwardTweet = (data: Buffer) => {
   try {
+    receivedTweets++
+    if (receivedTweets % 35 !== 0) {
+      return
+    }
     const dataStr = data.toString()
     const tweet: Tweet = JSON.parse(dataStr)
     // Filter out sensitive tweets
