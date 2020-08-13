@@ -73,7 +73,6 @@ const forwardTweet = (data: Buffer) => {
       return
     }
 
-    console.log(tweet.data)
     io.volatile.json.emit('tweet', dataStr)
   } catch (e) {
     // Ignore tweets that couldn't be parsed
