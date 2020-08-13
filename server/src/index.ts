@@ -38,7 +38,7 @@ if (config.isProduction) {
 }
 
 // Start receiving requests
-app.listen(config.port, async () => {
+server.listen(config.port, async () => {
   await getTweetSamples()
 })
 console.log(`Listening on port ${config.port}`)
