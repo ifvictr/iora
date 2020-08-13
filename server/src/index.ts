@@ -19,6 +19,7 @@ interface Tweet {
     author_id: string
     created_at: string
     id: string
+    in_reply_to_user_id: string
     lang: string
     possibly_sensitive: boolean
     text: string
@@ -55,7 +56,8 @@ const getTweetSamples = async () => {
     },
     params: {
       expansions: 'author_id',
-      'tweet.fields': 'created_at,geo,lang,possibly_sensitive',
+      'tweet.fields':
+        'created_at,geo,in_reply_to_user_id,lang,possibly_sensitive',
       'user.fields': 'name,profile_image_url,username,verified'
     },
     responseType: 'stream'
