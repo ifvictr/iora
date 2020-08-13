@@ -67,7 +67,7 @@ const forwardTweet = (data: Buffer) => {
     const dataStr = data.toString()
     const tweet: Tweet = JSON.parse(dataStr)
     // Filter out sensitive tweets
-    if (!tweet.data.possibly_sensitive) {
+    if (tweet.data.possibly_sensitive) {
       return
     }
 
