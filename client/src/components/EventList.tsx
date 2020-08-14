@@ -80,7 +80,6 @@ const EventList = () => {
         borderTopRightRadius: '15px',
         height: '24rem',
         position: 'relative',
-        transition: 'ease 25s height',
         width: '32rem',
         ':after': {
           backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0), white)',
