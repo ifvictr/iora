@@ -118,7 +118,10 @@ const EventList = () => {
         Live from Twitter
       </Heading>
       {tweets.length !== 0 && (
-        <Box as="ol" sx={{ listStyle: 'none', overflowY: 'hidden', pl: 0 }}>
+        <Box
+          as="ol"
+          sx={{ height: '100%', listStyle: 'none', overflowY: 'auto', pl: 0 }}
+        >
           {tweets.map(tweet => {
             const sender = tweet.includes.users.find(
               user => user.id === tweet.data.author_id
