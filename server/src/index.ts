@@ -58,6 +58,22 @@ server.listen(config.port, async () => {
 })
 console.log(`Listening on port ${config.port}`)
 
+const TWEET_FIELDS = [
+  'created_at',
+  'geo',
+  'in_reply_to_user_id',
+  'lang',
+  'possibly_sensitive',
+  'public_metrics'
+]
+const USER_FIELDS = [
+  'name',
+  'profile_image_url',
+  'public_metrics',
+  'username',
+  'verified'
+]
+
 const getTweetSamples = async () => {
   const options: AxiosRequestConfig = {
     method: 'GET',
@@ -68,9 +84,8 @@ const getTweetSamples = async () => {
     },
     params: {
       expansions: 'author_id',
-      'tweet.fields':
-        'created_at,geo,in_reply_to_user_id,lang,possibly_sensitive,public_metrics',
-      'user.fields': 'name,profile_image_url,public_metrics,username,verified'
+      'tweet.fields': TWEET_FIELDS.join(','),
+      'user.fields': USER_FIELDS.join(',')
     },
     responseType: 'stream'
   }
