@@ -136,7 +136,6 @@ const forwardTweet = (data: Buffer) => {
 
     // Don't forward heartbeats
     if (dataStr === '\r\n') {
-      console.log('Received heartbeat')
       return
     }
 
