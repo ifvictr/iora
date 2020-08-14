@@ -8,6 +8,12 @@ interface User {
   id: string
   name: string
   profile_image_url: string
+  public_metrics: {
+    followers_count: number
+    following_count: number
+    listed_count: number
+    tweet_count: number
+  }
   username: string
   verified: boolean
 }
@@ -20,6 +26,12 @@ interface Tweet {
     in_reply_to_user_id: string
     lang: string
     possibly_sensitive: boolean
+    public_metrics: {
+      like_count: number
+      quote_count: number
+      reply_count: number
+      retweet_count: number
+    }
     text: string
   }
   includes: {
