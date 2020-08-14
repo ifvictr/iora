@@ -3,29 +3,25 @@ import { Avatar, Box, Flex, Link, Text } from 'theme-ui'
 
 type EventType = 'reply' | 'retweet' | 'tweet'
 
-interface EventColorMap {
-  [key: string]: string
+interface EventInfo {
+  color: string
+  description: string
 }
 
-const EVENT_COLORS: EventColorMap = {
-  reply: '#1da0f2',
-  retweet: 'green',
-  tweet: 'transparent'
+const EVENTS: Record<EventType, EventInfo> = {
+  reply: {
+    color: '#1da0f2',
+    description: 'replied to a tweet'
+  },
+  retweet: {
+    color: 'green',
+    description: 'retweeted'
+  },
+  tweet: {
+    color: 'transparent',
+    description: 'tweeted'
+  }
 }
-
-const getTypeColor = (type: EventType) => EVENT_COLORS[type] || 'transparent'
-
-interface EventDescriptionMap {
-  [key: string]: string
-}
-
-const EVENT_DESCRIPTIONS: EventDescriptionMap = {
-  reply: 'replied to a tweet',
-  retweet: 'retweeted',
-  tweet: 'tweeted'
-}
-
-const getTypeDescription = (type: EventType) => EVENT_DESCRIPTIONS[type]
 
 interface EventProps {
   name: string
@@ -43,53 +39,53 @@ const Event = ({
   profileImage,
   text,
   username
-}: EventProps) => (
-  <Box
-    as="li"
-    py={2}
-    px={2}
-    sx={{
-      borderBottom: '1px solid #e6ecf0',
-      borderLeft: '2px solid',
-      borderLeftColor: getTypeColor(
-        isReply ? 'reply' : isRetweet ? 'retweet' : 'tweet'
-      )
-    }}
-  >
-    <Flex
+}: EventProps) => {
+  const type = isReply ? 'reply' : isRetweet ? 'retweet' : 'tweet'
+  const { color, description } = EVENTS[type]
+  return (
+    <Box
+      as="li"
+      py={2}
+      px={2}
       sx={{
-        alignItems: 'stretch',
-        flexDirection: 'row'
+        borderBottom: '1px solid #e6ecf0',
+        borderLeft: '2px solid',
+        borderLeftColor: color
       }}
     >
-      <Box sx={{ flexShrink: 0 }}>
-        <Avatar
-          src={profileImage}
-          alt={`@${username}’s profile image`}
-          height={24}
-          width={24}
-          sx={{ float: 'left' }} // Prevent alt text from overflowing
-        />
-      </Box>
-      <Box ml={2}>
-        <Text sx={{ overflowWrap: 'break-word' }}>
-          <Link
-            target="_blank"
-            href={`https://twitter.com/${username}`}
-            sx={{ color: 'black', fontWeight: 'bold' }}
-          >
-            {name}
-          </Link>{' '}
-          {getTypeDescription(
-            isReply ? 'reply' : isRetweet ? 'retweet' : 'tweet'
-          )}
-        </Text>
-        <Text color="#657786" mt={1}>
-          {text}
-        </Text>
-      </Box>
-    </Flex>
-  </Box>
-)
+      <Flex
+        sx={{
+          alignItems: 'stretch',
+          flexDirection: 'row'
+        }}
+      >
+        <Box sx={{ flexShrink: 0 }}>
+          <Avatar
+            src={profileImage}
+            alt={`@${username}’s profile image`}
+            height={24}
+            width={24}
+            sx={{ float: 'left' }} // Prevent alt text from overflowing
+          />
+        </Box>
+        <Box ml={2}>
+          <Text sx={{ overflowWrap: 'break-word' }}>
+            <Link
+              target="_blank"
+              href={`https://twitter.com/${username}`}
+              sx={{ color: 'black', fontWeight: 'bold' }}
+            >
+              {name}
+            </Link>{' '}
+            {description}
+          </Text>
+          <Text color="#657786" mt={1}>
+            {text}
+          </Text>
+        </Box>
+      </Flex>
+    </Box>
+  )
+}
 
 export default Event
