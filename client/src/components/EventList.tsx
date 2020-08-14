@@ -60,7 +60,6 @@ const EventList = () => {
         borderTopLeftRadius: '15px',
         borderTopRightRadius: '15px',
         height: '24rem',
-        overflowY: 'hidden',
         position: 'relative',
         transition: 'ease 25s height',
         width: '32rem',
@@ -90,6 +89,8 @@ const EventList = () => {
         sx={{
           bg: 'white',
           borderBottom: '1px solid #e6ecf0',
+          borderTopLeftRadius: 'inherit',
+          borderTopRightRadius: 'inherit',
           fontSize: '19px',
           position: 'relative',
           zIndex: 1
@@ -98,7 +99,7 @@ const EventList = () => {
         Live from Twitter
       </Heading>
       {tweets.length !== 0 && (
-        <Box as="ol" sx={{ listStyle: 'none', pl: 0 }}>
+        <Box as="ol" sx={{ listStyle: 'none', overflowY: 'hidden', pl: 0 }}>
           {tweets.map(tweet => {
             const sender = tweet.includes.users[0]
             return (
