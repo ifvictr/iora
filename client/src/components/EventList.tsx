@@ -35,8 +35,17 @@ interface Tweet {
     text: string
   }
   includes: {
+    media: {
+      media_key: string
+      type: string
+    }[]
+    polls: {
+      id: string
+    }[]
     users: User[]
-  }
+    }
+    users: User[]
+}
 }
 
 const MAX_SAVED_TWEETS = 500

@@ -38,6 +38,13 @@ interface Tweet {
     text: string
   }
   includes: {
+    media: {
+      media_key: string
+      type: string
+    }[]
+    polls: {
+      id: string
+    }[]
     users: User[]
   }
 }
