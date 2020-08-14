@@ -93,10 +93,30 @@ const getTweetSamples = async () => {
     responseType: 'stream',
     timeout: 5 * 1000
   }
-  const { data } = await axios.request(options)
-  data.on('data', forwardTweet)
+  try {
+    const { data } = await axios.request(options)
 
-  // TODO: Handle disconnections
+    console.log('Connected to Twitter stream')
+    data.on('data', forwardTweet)
+
+    data.on('close', () => {
+      console.log(
+        'The connection to Twitter’s stream endpoint was closed. Retrying in 10 seconds…'
+      )
+      setTimeout(async () => {
+        await getTweetSamples()
+      }, 10 * 1000)
+    })
+  } catch (e) {
+    // TODO: Implement proper linear and exponential backoff strategies according
+    // to https://developer.twitter.com/en/docs/twitter-api/tweets/sampled-stream/integrate/handling-disconnections.
+    console.log(
+      'An error occurred while trying to connect to Twitter’s stream endpoint. Retrying in 10 seconds…'
+    )
+    setTimeout(async () => {
+      await getTweetSamples()
+    }, 10 * 1000)
+  }
 }
 
 let receivedTweets = 0
