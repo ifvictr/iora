@@ -60,8 +60,14 @@ server.listen(config.port, async () => {
 })
 console.log(`Listening on port ${config.port}`)
 
-const EXPANSIONS = ['author_id', 'in_reply_to_user_id']
+const EXPANSIONS = [
+  'attachments.media_keys',
+  'attachments.poll_ids',
+  'author_id',
+  'in_reply_to_user_id'
+]
 const TWEET_FIELDS = [
+  'attachments',
   'created_at',
   'geo',
   'in_reply_to_user_id',
@@ -69,6 +75,8 @@ const TWEET_FIELDS = [
   'possibly_sensitive',
   'public_metrics'
 ]
+const MEDIA_FIELDS = ['media_key', 'type']
+const POLL_FIELDS = ['id']
 const USER_FIELDS = [
   'name',
   'profile_image_url',
@@ -87,6 +95,8 @@ const getTweetSamples = async () => {
     },
     params: {
       expansions: EXPANSIONS.join(','),
+      'media.fields': MEDIA_FIELDS.join(','),
+      'poll.fields': POLL_FIELDS.join(','),
       'tweet.fields': TWEET_FIELDS.join(','),
       'user.fields': USER_FIELDS.join(',')
     },
