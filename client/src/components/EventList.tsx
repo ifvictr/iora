@@ -43,9 +43,7 @@ interface Tweet {
       id: string
     }[]
     users: User[]
-    }
-    users: User[]
-}
+  }
 }
 
 const MAX_SAVED_TWEETS = 500
