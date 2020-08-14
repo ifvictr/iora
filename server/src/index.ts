@@ -90,7 +90,8 @@ const getTweetSamples = async () => {
       'tweet.fields': TWEET_FIELDS.join(','),
       'user.fields': USER_FIELDS.join(',')
     },
-    responseType: 'stream'
+    responseType: 'stream',
+    timeout: 5 * 1000
   }
   const { data } = await axios.request(options)
   data.on('data', forwardTweet)
