@@ -58,6 +58,7 @@ server.listen(config.port, async () => {
 })
 console.log(`Listening on port ${config.port}`)
 
+const EXPANSIONS = ['author_id', 'in_reply_to_user_id']
 const TWEET_FIELDS = [
   'created_at',
   'geo',
@@ -83,7 +84,7 @@ const getTweetSamples = async () => {
       Authorization: `Bearer ${config.bearerToken}`
     },
     params: {
-      expansions: 'author_id',
+      expansions: EXPANSIONS.join(','),
       'tweet.fields': TWEET_FIELDS.join(','),
       'user.fields': USER_FIELDS.join(',')
     },
