@@ -101,7 +101,9 @@ const EventList = () => {
       {tweets.length !== 0 && (
         <Box as="ol" sx={{ listStyle: 'none', overflowY: 'hidden', pl: 0 }}>
           {tweets.map(tweet => {
-            const sender = tweet.includes.users[0]
+            const sender = tweet.includes.users.find(
+              user => user.id === tweet.data.author_id
+            ) as User
             return (
               <Slide top duration={500} key={tweet.data.id}>
                 <Event
