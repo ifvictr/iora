@@ -1,5 +1,6 @@
 import React from 'react'
 import { Avatar, Box, Flex, Link, Text } from 'theme-ui'
+import theme from '../theme'
 
 export interface Media {
   media_key: string
@@ -88,7 +89,8 @@ const EVENTS: Record<EventType, EventInfo> = {
     description: () => 'replied to a tweet'
   },
   retweet: {
-    color: 'green',
+    // There's probably a better way to do this
+    color: theme.colors!.green as string,
     description: () => 'retweeted'
   },
   tweet: {
@@ -114,8 +116,7 @@ const Event = ({ type, data: tweet }: EventProps) => {
       px={2}
       sx={{
         borderBottom: '1px solid #e6ecf0',
-        borderLeft: '2px solid',
-        borderLeftColor: color
+        boxShadow: `inset 2px 0 ${color}`
       }}
     >
       <Flex
@@ -124,7 +125,7 @@ const Event = ({ type, data: tweet }: EventProps) => {
           flexDirection: 'row'
         }}
       >
-        <Box sx={{ flexShrink: 0 }}>
+        <Box ml="2px" sx={{ flexShrink: 0 }}>
           <Avatar
             src={sender.profile_image_url}
             alt={`@${sender.username}’s profile image`}
