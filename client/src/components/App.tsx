@@ -1,10 +1,10 @@
 import React from 'react'
 import { Box, Container, ThemeProvider } from 'theme-ui'
 import { SocketIOProvider } from 'use-socketio'
-import EventList from './components/EventList'
-import Footer from './components/Footer'
-import Masthead from './components/Masthead'
-import theme from './theme'
+import theme from '../theme'
+import EventList from './EventList'
+import Footer from './Footer'
+import Masthead from './Masthead'
 
 const App = () => {
   return (
