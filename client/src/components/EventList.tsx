@@ -37,6 +37,7 @@ const EventList = () => {
         borderTopLeftRadius: '15px',
         borderTopRightRadius: '15px',
         height: '24rem',
+        overflow: 'hidden',
         position: 'relative',
         width: '32rem',
         ':after': {
