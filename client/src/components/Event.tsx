@@ -102,7 +102,6 @@ const EVENTS: Record<EventType, EventInfo> = {
               >
                 {recipient.name}
               </Link>
-              ’s tweet
             </>
           ) : (
             'a tweet'
