@@ -3,7 +3,7 @@ import { Container, Link, Text } from 'theme-ui'
 
 const Footer = () => (
   <Container py={4}>
-    <Text sx={{ textAlign: 'center' }}>
+    <Text>
       Made by{' '}
       <Link target="_blank" rel="noopener" href="https://victortruong.com">
         @ifvictr
