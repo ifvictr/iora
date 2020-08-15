@@ -4,20 +4,6 @@ import { Box, Heading } from 'theme-ui'
 import { useSocket } from 'use-socketio'
 import Event from './Event'
 
-export interface User {
-  id: string
-  name: string
-  profile_image_url: string
-  public_metrics: {
-    followers_count: number
-    following_count: number
-    listed_count: number
-    tweet_count: number
-  }
-  username: string
-  verified: boolean
-}
-
 export interface Media {
   media_key: string
   type: 'animated_gif' | 'photo' | 'video'
@@ -48,6 +34,20 @@ export interface Tweet {
     polls?: Poll[]
     users: User[]
   }
+}
+
+export interface User {
+  id: string
+  name: string
+  profile_image_url: string
+  public_metrics: {
+    followers_count: number
+    following_count: number
+    listed_count: number
+    tweet_count: number
+  }
+  username: string
+  verified: boolean
 }
 
 const getEventType = (tweet: Tweet) => {
