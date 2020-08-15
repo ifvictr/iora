@@ -1,47 +1,50 @@
 import React from 'react'
 import { Avatar, Box, Flex, Link, Text } from 'theme-ui'
+import { Tweet, User } from './EventList'
 
-type EventType = 'reply' | 'retweet' | 'tweet'
+type EventType = 'media' | 'poll' | 'reply' | 'retweet' | 'tweet'
 
 interface EventInfo {
   color: string
-  description: string
+  description: (tweet: Tweet) => string
 }
 
 const EVENTS: Record<EventType, EventInfo> = {
+  media: {
+    color: 'transparent',
+    description: tweet => {
+      const { type } = tweet.includes.media![0]
+      return `posted a ${type === 'animated_gif' ? 'GIF' : type}`
+    }
+  },
+  poll: {
+    color: 'transparent',
+    description: () => 'started a poll'
+  },
   reply: {
     color: '#1da0f2',
-    description: 'replied to a tweet'
+    description: () => 'replied to a tweet'
   },
   retweet: {
     color: 'green',
-    description: 'retweeted'
+    description: () => 'retweeted'
   },
   tweet: {
     color: 'transparent',
-    description: 'tweeted'
+    description: () => 'tweeted'
   }
 }
 
 interface EventProps {
-  name: string
-  username: string
-  profileImage: string
-  text: string
-  isReply?: boolean
-  isRetweet?: boolean
+  type: EventType
+  data: Tweet
 }
 
-const Event = ({
-  isReply = false,
-  isRetweet = false,
-  name,
-  profileImage,
-  text,
-  username
-}: EventProps) => {
-  const type = isReply ? 'reply' : isRetweet ? 'retweet' : 'tweet'
+const Event = ({ type, data: tweet }: EventProps) => {
   const { color, description } = EVENTS[type]
+  const sender = tweet.includes.users.find(
+    user => user.id === tweet.data.author_id
+  ) as User
   return (
     <Box
       as="li"
@@ -61,8 +64,8 @@ const Event = ({
       >
         <Box sx={{ flexShrink: 0 }}>
           <Avatar
-            src={profileImage}
-            alt={`@${username}’s profile image`}
+            src={sender.profile_image_url}
+            alt={`@${sender.username}’s profile image`}
             height={24}
             width={24}
             sx={{ float: 'left' }} // Prevent alt text from overflowing
@@ -72,15 +75,15 @@ const Event = ({
           <Text sx={{ overflowWrap: 'break-word' }}>
             <Link
               target="_blank"
-              href={`https://twitter.com/${username}`}
+              href={`https://twitter.com/${sender.username}`}
               sx={{ color: 'black', fontWeight: 'bold' }}
             >
-              {name}
+              {sender.name}
             </Link>{' '}
-            {description}
+            {description(tweet)}
           </Text>
           <Text color="#657786" mt={1}>
-            {text}
+            {tweet.data.text}
           </Text>
         </Box>
       </Flex>

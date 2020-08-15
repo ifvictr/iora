@@ -4,7 +4,7 @@ import { Box, Heading } from 'theme-ui'
 import { useSocket } from 'use-socketio'
 import Event from './Event'
 
-interface User {
+export interface User {
   id: string
   name: string
   profile_image_url: string
@@ -18,7 +18,16 @@ interface User {
   verified: boolean
 }
 
-interface Tweet {
+export interface Media {
+  media_key: string
+  type: 'animated_gif' | 'photo' | 'video'
+}
+
+export interface Poll {
+  id: string
+}
+
+export interface Tweet {
   data: {
     author_id: string
     created_at: string
@@ -35,15 +44,27 @@ interface Tweet {
     text: string
   }
   includes: {
-    media: {
-      media_key: string
-      type: string
-    }[]
-    polls: {
-      id: string
-    }[]
+    media?: Media[]
+    polls?: Poll[]
     users: User[]
   }
+}
+
+const getEventType = (tweet: Tweet) => {
+  const RETWEET_PATTERN = /^RT @(.+):/g
+  const isRetweet = RETWEET_PATTERN.test(tweet.data.text)
+
+  if ('polls' in tweet.includes && !isRetweet) {
+    return 'poll'
+  } else if ('media' in tweet.includes && !isRetweet) {
+    return 'media'
+  } else if (!!tweet.data.in_reply_to_user_id) {
+    return 'reply'
+  } else if (isRetweet) {
+    return 'retweet'
+  }
+
+  return 'tweet'
 }
 
 const MAX_SAVED_TWEETS = 500
@@ -121,24 +142,11 @@ const EventList = () => {
           as="ol"
           sx={{ height: '100%', listStyle: 'none', overflowY: 'auto', pl: 0 }}
         >
-          {tweets.map(tweet => {
-            const sender = tweet.includes.users.find(
-              user => user.id === tweet.data.author_id
-            ) as User
-            return (
-              <Slide top duration={500} key={tweet.data.id}>
-                <Event
-                  name={sender.name}
-                  username={sender.username}
-                  profileImage={sender.profile_image_url}
-                  text={tweet.data.text}
-                  isReply={!!tweet.data.in_reply_to_user_id}
-                  isRetweet={tweet.data.text.startsWith('RT')}
-                  key={tweet.data.id}
-                />
-              </Slide>
-            )
-          })}
+          {tweets.map(tweet => (
+            <Slide top duration={500} key={tweet.data.id}>
+              <Event type={getEventType(tweet)} data={tweet} />
+            </Slide>
+          ))}
         </Box>
       )}
     </Box>
