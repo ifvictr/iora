@@ -29,7 +29,9 @@ const EXPANSIONS = [
   'attachments.media_keys',
   'attachments.poll_ids',
   'author_id',
-  'in_reply_to_user_id'
+  'in_reply_to_user_id',
+  'referenced_tweets.id',
+  'referenced_tweets.id.author_id'
 ]
 const TWEET_FIELDS = [
   'attachments',
@@ -38,7 +40,8 @@ const TWEET_FIELDS = [
   'in_reply_to_user_id',
   'lang',
   'possibly_sensitive',
-  'public_metrics'
+  'public_metrics',
+  'referenced_tweets'
 ]
 const MEDIA_FIELDS = ['media_key', 'type']
 const POLL_FIELDS = ['id']

@@ -25,13 +25,20 @@ export interface Tweet {
       reply_count: number
       retweet_count: number
     }
+    referenced_tweets?: TweetReference[]
     text: string
   }
   includes: {
     media?: Media[]
     polls?: Poll[]
+    tweets?: Tweet['data'][]
     users: User[]
   }
+}
+
+export interface TweetReference {
+  id: string
+  type: 'replied_to' | 'retweeted' | 'quoted'
 }
 
 export interface User {
