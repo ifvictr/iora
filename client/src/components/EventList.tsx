@@ -58,22 +58,18 @@ const EventList = () => {
         }
       }}
     >
-      <Heading
-        as="h2"
+      <Box
         py="10px"
         px="15px"
         sx={{
-          bg: 'white',
           borderBottom: '1px solid #e6ecf0',
-          borderTopLeftRadius: 'inherit',
-          borderTopRightRadius: 'inherit',
-          fontSize: '19px',
-          position: 'relative',
-          zIndex: 1
+          position: 'relative'
         }}
       >
-        Live from Twitter
-      </Heading>
+        <Heading as="h2" sx={{ fontSize: '19px' }}>
+          Live from Twitter
+        </Heading>
+      </Box>
       {tweets.length !== 0 && (
         <Box
           as="ol"
