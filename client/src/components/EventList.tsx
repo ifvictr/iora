@@ -17,6 +17,11 @@ const EventList = () => {
     setConnected(false)
   })
   useSocket('tweet', data => {
+    // Fix visual indicator when `connect` occasionally fails to fire
+    if (!isConnected) {
+      setConnected(true)
+    }
+
     const newPayload = JSON.parse(data) as Payload
     let newPayloads = [newPayload, ...payloads]
 
