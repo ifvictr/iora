@@ -41,7 +41,7 @@ const EventList = () => {
           'rgba(101, 119, 134, 0.2) 0px 0px 15px, rgba(101, 119, 134, 0.15) 0px 0px 3px 1px',
         borderTopLeftRadius: '15px',
         borderTopRightRadius: '15px',
-        height: '24rem',
+        height: '16rem',
         overflow: 'hidden',
         position: 'relative',
         width: '32rem',
