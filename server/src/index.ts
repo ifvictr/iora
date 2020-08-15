@@ -7,48 +7,6 @@ import path from 'path'
 import socketIo from 'socket.io'
 import config from './config'
 
-interface User {
-  id: string
-  name: string
-  profile_image_url: string
-  public_metrics: {
-    followers_count: number
-    following_count: number
-    listed_count: number
-    tweet_count: number
-  }
-  username: string
-  verified: boolean
-}
-
-interface Tweet {
-  data: {
-    author_id: string
-    created_at: string
-    id: string
-    in_reply_to_user_id: string
-    lang: string
-    possibly_sensitive: boolean
-    public_metrics: {
-      like_count: number
-      quote_count: number
-      reply_count: number
-      retweet_count: number
-    }
-    text: string
-  }
-  includes: {
-    media: {
-      media_key: string
-      type: string
-    }[]
-    polls: {
-      id: string
-    }[]
-    users: User[]
-  }
-}
-
 // Start Express + Socket.IO server
 console.log('Starting Songbird…')
 const app = express()
@@ -151,17 +109,8 @@ const forwardTweet = (data: Buffer) => {
       return
     }
 
-    const tweet: Tweet = JSON.parse(dataStr)
-    if (shouldTweetBeIgnored(tweet)) {
-      return
-    }
-
     io.volatile.json.emit('tweet', dataStr)
   } catch (e) {
     // Ignore tweets that couldn't be parsed
   }
-}
-
-const shouldTweetBeIgnored = (tweet: Tweet) => {
-  return tweet.data.possibly_sensitive
 }
