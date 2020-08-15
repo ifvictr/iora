@@ -2,13 +2,13 @@ import React, { useState } from 'react'
 import { Slide } from 'react-reveal'
 import { Box, Heading } from 'theme-ui'
 import { useSocket } from 'use-socketio'
-import Event, { Tweet, getEventType } from './Event'
+import Event, { Payload, getEventType } from './Event'
 
-const MAX_SAVED_TWEETS = 500
+const MAX_SAVED_PAYLOADS = 500
 
 const EventList = () => {
   const [isConnected, setConnected] = useState(false)
-  const [tweets, setTweets] = useState<Tweet[]>([])
+  const [payloads, setPayloads] = useState<Payload[]>([])
 
   useSocket('connect', () => {
     setConnected(true)
@@ -17,15 +17,15 @@ const EventList = () => {
     setConnected(false)
   })
   useSocket('tweet', data => {
-    const newTweet = JSON.parse(data) as Tweet
-    let newTweets = [newTweet, ...tweets]
+    const newPayload = JSON.parse(data) as Payload
+    let newPayloads = [newPayload, ...payloads]
 
-    // Don't let saved tweet events grow over the max
-    if (newTweets.length > MAX_SAVED_TWEETS) {
-      newTweets = newTweets.slice(0, MAX_SAVED_TWEETS)
+    // Don't let the total saved payloads exceed the maximum
+    if (newPayloads.length > MAX_SAVED_PAYLOADS) {
+      newPayloads = newPayloads.slice(0, MAX_SAVED_PAYLOADS)
     }
 
-    setTweets(newTweets)
+    setPayloads(newPayloads)
   })
 
   return (
@@ -70,14 +70,14 @@ const EventList = () => {
           Live from Twitter
         </Heading>
       </Box>
-      {tweets.length !== 0 && (
+      {payloads.length !== 0 && (
         <Box
           as="ol"
           sx={{ height: '100%', listStyle: 'none', overflowY: 'auto', pl: 0 }}
         >
-          {tweets.map(tweet => (
-            <Slide top duration={500} key={tweet.data.id}>
-              <Event type={getEventType(tweet)} data={tweet} />
+          {payloads.map(payload => (
+            <Slide top duration={500} key={payload.data.id}>
+              <Event type={getEventType(payload)} data={payload} />
             </Slide>
           ))}
         </Box>

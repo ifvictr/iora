@@ -2,6 +2,16 @@ import React from 'react'
 import { Avatar, Box, Flex, Link, Text } from 'theme-ui'
 import theme from '../theme'
 
+export interface Payload {
+  data: Tweet
+  includes: {
+    media?: Media[]
+    polls?: Poll[]
+    tweets?: Tweet[]
+    users: User[]
+  }
+}
+
 export interface Media {
   media_key: string
   type: 'animated_gif' | 'photo' | 'video'
@@ -12,28 +22,20 @@ export interface Poll {
 }
 
 export interface Tweet {
-  data: {
-    author_id: string
-    created_at: string
-    id: string
-    in_reply_to_user_id: string
-    lang: string
-    possibly_sensitive: boolean
-    public_metrics: {
-      like_count: number
-      quote_count: number
-      reply_count: number
-      retweet_count: number
-    }
-    referenced_tweets?: TweetReference[]
-    text: string
+  author_id: string
+  created_at: string
+  id: string
+  in_reply_to_user_id: string
+  lang: string
+  possibly_sensitive: boolean
+  public_metrics: {
+    like_count: number
+    quote_count: number
+    reply_count: number
+    retweet_count: number
   }
-  includes: {
-    media?: Media[]
-    polls?: Poll[]
-    tweets?: Tweet['data'][]
-    users: User[]
-  }
+  referenced_tweets?: TweetReference[]
+  text: string
 }
 
 export interface TweetReference {
@@ -55,15 +57,15 @@ export interface User {
   verified: boolean
 }
 
-export const getEventType = (tweet: Tweet): EventType => {
+export const getEventType = (payload: Payload): EventType => {
   const RETWEET_PATTERN = /^RT @(.+):/g
-  const isRetweet = RETWEET_PATTERN.test(tweet.data.text)
+  const isRetweet = RETWEET_PATTERN.test(payload.data.text)
 
-  if ('polls' in tweet.includes && !isRetweet) {
+  if ('polls' in payload.includes && !isRetweet) {
     return 'poll'
-  } else if ('media' in tweet.includes && !isRetweet) {
+  } else if ('media' in payload.includes && !isRetweet) {
     return 'media'
-  } else if (!!tweet.data.in_reply_to_user_id) {
+  } else if (!!payload.data.in_reply_to_user_id) {
     return 'reply'
   } else if (isRetweet) {
     return 'retweet'
@@ -76,14 +78,14 @@ type EventType = 'media' | 'poll' | 'reply' | 'retweet' | 'tweet'
 
 interface EventInfo {
   color: string
-  description: (tweet: Tweet) => string | React.ReactElement
+  description: (payload: Payload) => string | React.ReactElement
 }
 
 const EVENTS: Record<EventType, EventInfo> = {
   media: {
     color: 'transparent',
-    description: tweet => {
-      const { type } = tweet.includes.media![0]
+    description: payload => {
+      const { type } = payload.includes.media![0]
       return `posted a ${type === 'animated_gif' ? 'GIF' : type}`
     }
   },
@@ -93,9 +95,9 @@ const EVENTS: Record<EventType, EventInfo> = {
   },
   reply: {
     color: '#1da0f2',
-    description: tweet => {
-      const recipient = tweet.includes.users.find(
-        user => user.id === tweet.data.in_reply_to_user_id
+    description: payload => {
+      const recipient = payload.includes.users.find(
+        user => user.id === payload.data.in_reply_to_user_id
       )
       return (
         <>
@@ -120,14 +122,14 @@ const EVENTS: Record<EventType, EventInfo> = {
   retweet: {
     // There's probably a better way to do this
     color: theme.colors!.green as string,
-    description: tweet => {
-      const retweetReference = tweet.data.referenced_tweets!.find(
+    description: payload => {
+      const retweetReference = payload.data.referenced_tweets!.find(
         referencedTweet => referencedTweet.type === 'retweeted'
       )
-      const originalTweet = tweet.includes.tweets?.find(
+      const originalTweet = payload.includes.tweets?.find(
         includedTweet => includedTweet.id === retweetReference?.id
       )
-      const author = tweet.includes.users.find(
+      const author = payload.includes.users.find(
         user => user.id === originalTweet?.author_id
       )
       return (
@@ -159,7 +161,7 @@ const EVENTS: Record<EventType, EventInfo> = {
 
 interface EventProps {
   type: EventType
-  data: Tweet
+  data: Payload
 }
 
 const Event = ({ type, data: tweet }: EventProps) => {
