@@ -120,7 +120,36 @@ const EVENTS: Record<EventType, EventInfo> = {
   retweet: {
     // There's probably a better way to do this
     color: theme.colors!.green as string,
-    description: () => 'retweeted'
+    description: tweet => {
+      const retweetReference = tweet.data.referenced_tweets!.find(
+        referencedTweet => referencedTweet.type === 'retweeted'
+      )
+      const originalTweet = tweet.includes.tweets?.find(
+        includedTweet => includedTweet.id === retweetReference?.id
+      )
+      const author = tweet.includes.users.find(
+        user => user.id === originalTweet?.author_id
+      )
+      return (
+        <>
+          retweeted{' '}
+          {!!author ? (
+            <>
+              <Link
+                target="_blank"
+                href={`https://twitter.com/${author.username}`}
+                sx={{ color: 'black', fontWeight: 'bold' }}
+              >
+                {author.name}
+              </Link>
+              ’s Tweet
+            </>
+          ) : (
+            'a Tweet'
+          )}
+        </>
+      )
+    }
   },
   tweet: {
     color: 'transparent',
