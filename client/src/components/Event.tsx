@@ -130,8 +130,7 @@ const EVENTS: Record<EventType, EventInfo> = {
     }
   },
   retweet: {
-    // There's probably a better way to do this
-    color: theme.colors!.green as string,
+    color: theme.colors.green,
     description: payload => {
       const retweetReference = payload.data.referenced_tweets!.find(
         referencedTweet => referencedTweet.type === 'retweeted'

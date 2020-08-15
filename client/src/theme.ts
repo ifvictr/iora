@@ -1,6 +1,4 @@
-import { Theme } from 'theme-ui'
-
-const theme: Theme = {
+const theme = {
   colors: {
     background: '#ffffff',
     text: '#14171a',
