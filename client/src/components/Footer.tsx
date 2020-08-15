@@ -8,7 +8,7 @@ const Footer = () => (
       <Link target="_blank" rel="noopener" href="https://victortruong.com">
         @ifvictr
       </Link>
-      . Check out the source code on{' '}
+      . The source code is available on{' '}
       <Link
         target="_blank"
         rel="noopener"
@@ -16,7 +16,7 @@ const Footer = () => (
       >
         GitHub
       </Link>
-      !
+      .
     </Text>
   </Container>
 )
