@@ -13,8 +13,8 @@ const Masthead = () => (
         textTransform: 'lowercase'
       }}
       css={{
-        '-webkit-background-clip': 'text',
-        '-webkit-text-fill-color': 'transparent'
+        WebkitBackgroundClip: 'text',
+        WebkitTextFillColor: 'transparent'
       }}
     >
       Songbird
