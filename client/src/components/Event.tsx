@@ -1,6 +1,68 @@
 import React from 'react'
 import { Avatar, Box, Flex, Link, Text } from 'theme-ui'
-import { Tweet, User } from './EventList'
+
+export interface Media {
+  media_key: string
+  type: 'animated_gif' | 'photo' | 'video'
+}
+
+export interface Poll {
+  id: string
+}
+
+export interface Tweet {
+  data: {
+    author_id: string
+    created_at: string
+    id: string
+    in_reply_to_user_id: string
+    lang: string
+    possibly_sensitive: boolean
+    public_metrics: {
+      like_count: number
+      quote_count: number
+      reply_count: number
+      retweet_count: number
+    }
+    text: string
+  }
+  includes: {
+    media?: Media[]
+    polls?: Poll[]
+    users: User[]
+  }
+}
+
+export interface User {
+  id: string
+  name: string
+  profile_image_url: string
+  public_metrics: {
+    followers_count: number
+    following_count: number
+    listed_count: number
+    tweet_count: number
+  }
+  username: string
+  verified: boolean
+}
+
+export const getEventType = (tweet: Tweet): EventType => {
+  const RETWEET_PATTERN = /^RT @(.+):/g
+  const isRetweet = RETWEET_PATTERN.test(tweet.data.text)
+
+  if ('polls' in tweet.includes && !isRetweet) {
+    return 'poll'
+  } else if ('media' in tweet.includes && !isRetweet) {
+    return 'media'
+  } else if (!!tweet.data.in_reply_to_user_id) {
+    return 'reply'
+  } else if (isRetweet) {
+    return 'retweet'
+  }
+
+  return 'tweet'
+}
 
 type EventType = 'media' | 'poll' | 'reply' | 'retweet' | 'tweet'
 

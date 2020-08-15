@@ -2,70 +2,7 @@ import React, { useState } from 'react'
 import { Slide } from 'react-reveal'
 import { Box, Heading } from 'theme-ui'
 import { useSocket } from 'use-socketio'
-import Event from './Event'
-
-export interface Media {
-  media_key: string
-  type: 'animated_gif' | 'photo' | 'video'
-}
-
-export interface Poll {
-  id: string
-}
-
-export interface Tweet {
-  data: {
-    author_id: string
-    created_at: string
-    id: string
-    in_reply_to_user_id: string
-    lang: string
-    possibly_sensitive: boolean
-    public_metrics: {
-      like_count: number
-      quote_count: number
-      reply_count: number
-      retweet_count: number
-    }
-    text: string
-  }
-  includes: {
-    media?: Media[]
-    polls?: Poll[]
-    users: User[]
-  }
-}
-
-export interface User {
-  id: string
-  name: string
-  profile_image_url: string
-  public_metrics: {
-    followers_count: number
-    following_count: number
-    listed_count: number
-    tweet_count: number
-  }
-  username: string
-  verified: boolean
-}
-
-const getEventType = (tweet: Tweet) => {
-  const RETWEET_PATTERN = /^RT @(.+):/g
-  const isRetweet = RETWEET_PATTERN.test(tweet.data.text)
-
-  if ('polls' in tweet.includes && !isRetweet) {
-    return 'poll'
-  } else if ('media' in tweet.includes && !isRetweet) {
-    return 'media'
-  } else if (!!tweet.data.in_reply_to_user_id) {
-    return 'reply'
-  } else if (isRetweet) {
-    return 'retweet'
-  }
-
-  return 'tweet'
-}
+import Event, { Tweet, getEventType } from './Event'
 
 const MAX_SAVED_TWEETS = 500
 
