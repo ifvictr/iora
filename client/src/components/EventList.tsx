@@ -41,7 +41,7 @@ const EventList = () => {
         position: 'relative',
         width: '32rem',
         ':after': {
-          backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0), white)',
+          backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0), white)',
           bottom: 0,
           content: '""',
           display: 'block',
