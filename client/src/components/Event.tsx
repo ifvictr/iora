@@ -86,7 +86,30 @@ const EVENTS: Record<EventType, EventInfo> = {
   },
   reply: {
     color: '#1da0f2',
-    description: () => 'replied to a tweet'
+    description: tweet => {
+      const recipient = tweet.includes.users.find(
+        user => user.id === tweet.data.in_reply_to_user_id
+      )
+      return (
+        <>
+          replied to{' '}
+          {!!recipient ? (
+            <>
+              <Link
+                target="_blank"
+                href={`https://twitter.com/${recipient.username}`}
+                sx={{ color: 'black', fontWeight: 'bold' }}
+              >
+                {recipient.name}
+              </Link>
+              ’s tweet
+            </>
+          ) : (
+            'a tweet'
+          )}
+        </>
+      )
+    }
   },
   retweet: {
     // There's probably a better way to do this
