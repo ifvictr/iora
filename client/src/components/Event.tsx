@@ -69,7 +69,7 @@ type EventType = 'media' | 'poll' | 'reply' | 'retweet' | 'tweet'
 
 interface EventInfo {
   color: string
-  description: (tweet: Tweet) => string
+  description: (tweet: Tweet) => string | React.ReactElement
 }
 
 const EVENTS: Record<EventType, EventInfo> = {
