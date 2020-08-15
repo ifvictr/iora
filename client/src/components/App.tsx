@@ -10,7 +10,7 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <SocketIOProvider url="/">
-        <Container sx={{ maxWidth: '64rem' }}>
+        <Container py={3} px={2} sx={{ maxWidth: '64rem' }}>
           <Masthead />
           <Box
             sx={{
