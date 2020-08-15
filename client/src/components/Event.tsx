@@ -10,6 +10,16 @@ export interface Payload {
     tweets?: Tweet[]
     users: User[]
   }
+  errors?: TwitterAPIError[]
+}
+
+export interface TwitterAPIError {
+  detail: string
+  parameter: string
+  resource_type: string
+  title: string
+  type: string
+  value: string
 }
 
 export interface Media {
