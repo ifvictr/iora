@@ -153,10 +153,10 @@ const EVENTS: Record<EventType, EventInfo> = {
               >
                 {author.name}
               </Link>
-              ’s Tweet
+              ’s tweet
             </>
           ) : (
-            'a Tweet'
+            'a tweet'
           )}
         </>
       )
