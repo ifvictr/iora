@@ -29,6 +29,7 @@
     "react-reveal": "^1.2.2",
     "react-scripts": "3.4.3",
     "theme-ui": "^0.3.1",
+    "tone": "^14.7.39",
     "use-socketio": "^2.0.3"
   },
   "devDependencies": {
