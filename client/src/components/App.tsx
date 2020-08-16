@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Container, ThemeProvider } from 'theme-ui'
+import { Container, ThemeProvider } from 'theme-ui'
 import { SocketIOProvider } from 'use-socketio'
 import theme from '../theme'
 import EventList from './EventList'
