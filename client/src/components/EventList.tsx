@@ -43,8 +43,7 @@ const EventList = ({ sx, ...props }: EventListProps) => {
         bg: 'white',
         boxShadow:
           'rgba(101, 119, 134, 0.2) 0px 0px 15px, rgba(101, 119, 134, 0.15) 0px 0px 3px 1px',
-        borderTopLeftRadius: '15px',
-        borderTopRightRadius: '15px',
+        borderRadius: '15px',
         height: '16rem',
         overflow: 'hidden',
         position: 'relative',

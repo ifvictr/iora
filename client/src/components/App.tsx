@@ -12,7 +12,9 @@ const App = () => {
       <SocketIOProvider url="/">
         <Container py={3} px={2} sx={{ maxWidth: '64rem' }}>
           <Masthead />
-          <EventList sx={{ bottom: 0, position: 'fixed', right: '20px' }} />
+          <EventList
+            sx={{ bottom: '20px', position: 'fixed', right: '20px' }}
+          />
           <Footer />
         </Container>
       </SocketIOProvider>
