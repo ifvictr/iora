@@ -20,6 +20,10 @@ const EventList = ({ sx, ...props }: EventListProps) => {
   useSocket('connect_error', () => {
     setConnected(false)
   })
+  useSocket('stream_close', () => {
+    setConnected(false)
+  })
+
   useSocket('tweet', data => {
     // Fix visual indicator when `connect` occasionally fails to fire
     if (!isConnected) {

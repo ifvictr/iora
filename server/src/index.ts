@@ -81,6 +81,7 @@ const getTweetSamples = async () => {
       console.log(
         'The connection to Twitter’s stream endpoint was closed. Retrying in 10 seconds…'
       )
+      io.emit('stream_close')
       setTimeout(async () => {
         await getTweetSamples()
       }, 10 * 1000)
