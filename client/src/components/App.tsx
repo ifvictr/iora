@@ -9,15 +9,15 @@ import Masthead from './Masthead'
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
-      <SocketIOProvider url="/">
-        <Container py={3} px={2} sx={{ maxWidth: '64rem' }}>
-          <Masthead />
+      <Container py={3} px={2} sx={{ maxWidth: '64rem' }}>
+        <Masthead />
+        <SocketIOProvider url="/">
           <EventList
             sx={{ bottom: '20px', position: 'fixed', right: '20px' }}
           />
-          <Footer />
-        </Container>
-      </SocketIOProvider>
+        </SocketIOProvider>
+        <Footer />
+      </Container>
     </ThemeProvider>
   )
 }
