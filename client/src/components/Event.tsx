@@ -84,7 +84,7 @@ export const getEventType = (payload: Payload): EventType => {
   return 'tweet'
 }
 
-type EventType = 'media' | 'poll' | 'reply' | 'retweet' | 'tweet'
+export type EventType = 'media' | 'poll' | 'reply' | 'retweet' | 'tweet'
 
 interface EventInfo {
   color: string
