@@ -1,12 +1,16 @@
 import React, { useState } from 'react'
 import { Slide } from 'react-reveal'
-import { Box, Heading } from 'theme-ui'
+import { Box, Heading, SxStyleProp } from 'theme-ui'
 import { useSocket } from 'use-socketio'
 import Event, { Payload, getEventType } from './Event'
 
 const MAX_SAVED_PAYLOADS = 500
 
-const EventList = () => {
+export interface EventListProps {
+  sx?: SxStyleProp
+}
+
+const EventList = ({ sx, ...props }: EventListProps) => {
   const [isConnected, setConnected] = useState(false)
   const [payloads, setPayloads] = useState<Payload[]>([])
 
@@ -61,8 +65,10 @@ const EventList = () => {
             height: '100%',
             opacity: 0.5
           })
-        }
+        },
+        ...sx
       }}
+      {...props}
     >
       <Box
         py="10px"
