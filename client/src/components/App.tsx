@@ -5,6 +5,7 @@ import theme from '../theme'
 import EventList from './EventList'
 import Footer from './Footer'
 import Masthead from './Masthead'
+import MusicGenerator from './MusicGenerator'
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
           <EventList
             sx={{ bottom: '20px', position: 'fixed', right: '20px' }}
           />
+          <MusicGenerator />
         </SocketIOProvider>
         <Footer />
       </Container>
