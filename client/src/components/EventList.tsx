@@ -40,7 +40,7 @@ const EventList = ({ sx, ...props }: EventListProps) => {
   return (
     <Box
       sx={{
-        bg: 'white',
+        bg: 'background',
         boxShadow:
           'rgba(101, 119, 134, 0.2) 0px 0px 15px, rgba(101, 119, 134, 0.15) 0px 0px 3px 1px',
         borderRadius: '15px',

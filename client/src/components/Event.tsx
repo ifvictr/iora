@@ -117,7 +117,7 @@ const EVENTS: Record<EventType, EventInfo> = {
               <Link
                 target="_blank"
                 href={`https://twitter.com/${recipient.username}`}
-                sx={{ color: 'black', fontWeight: 'bold' }}
+                sx={{ color: 'text', fontWeight: 'bold' }}
               >
                 {recipient.name}
               </Link>
@@ -149,7 +149,7 @@ const EVENTS: Record<EventType, EventInfo> = {
               <Link
                 target="_blank"
                 href={`https://twitter.com/${author.username}`}
-                sx={{ color: 'black', fontWeight: 'bold' }}
+                sx={{ color: 'text', fontWeight: 'bold' }}
               >
                 {author.name}
               </Link>
@@ -208,7 +208,7 @@ const Event = ({ type, data: tweet }: EventProps) => {
             <Link
               target="_blank"
               href={`https://twitter.com/${sender.username}`}
-              sx={{ color: 'black', fontWeight: 'bold' }}
+              sx={{ color: 'text', fontWeight: 'bold' }}
             >
               {sender.name}
             </Link>{' '}
