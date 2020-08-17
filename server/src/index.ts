@@ -16,7 +16,7 @@ const io = socketIo(server)
 app.use(helmet())
 app.use(cors())
 if (config.isProduction) {
-  app.use(express.static(path.join(__dirname, '../../client/build')))
+  app.use(express.static(path.join(__dirname, '../../app/build')))
 }
 
 // Start receiving requests
