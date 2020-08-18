@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Slide } from 'react-reveal'
 import { Box, Heading, SxStyleProp } from 'theme-ui'
 import { useSocket } from 'use-socketio'
@@ -13,6 +13,22 @@ export interface EventListProps {
 const EventList = ({ sx, ...props }: EventListProps) => {
   const [isConnected, setConnected] = useState(false)
   const [payloads, setPayloads] = useState<Payload[]>([])
+  const payloadQueueRef = useRef<Payload[]>([])
+
+  useEffect(() => {
+    const addIntervalId = setInterval(() => {
+      if (payloadQueueRef.current.length === 0) {
+        return
+      }
+
+      const nextPayload = payloadQueueRef.current.shift() as Payload
+      setPayloads([nextPayload, ...payloads])
+    }, 500)
+
+    return () => {
+      clearInterval(addIntervalId)
+    }
+  }, [payloads])
 
   useSocket('connect', () => {
     setConnected(true)
@@ -31,14 +47,10 @@ const EventList = ({ sx, ...props }: EventListProps) => {
     }
 
     const newPayload = JSON.parse(data) as Payload
-    let newPayloads = [newPayload, ...payloads]
-
     // Don't let the total saved payloads exceed the maximum
-    if (newPayloads.length > MAX_SAVED_PAYLOADS) {
-      newPayloads = newPayloads.slice(0, MAX_SAVED_PAYLOADS)
+    if (payloadQueueRef.current.length < MAX_SAVED_PAYLOADS) {
+      payloadQueueRef.current.push(newPayload)
     }
-
-    setPayloads(newPayloads)
   })
 
   return (
