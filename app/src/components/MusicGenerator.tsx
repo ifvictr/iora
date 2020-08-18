@@ -4,11 +4,11 @@ import { useSocket } from 'use-socketio'
 import { EventType, Payload, getEventType } from './Event'
 
 const NOTES: Record<EventType, tone.Unit.Frequency> = {
-  media: 'E3',
-  poll: 'D3',
-  reply: 'C3',
-  retweet: 'B3',
-  tweet: 'A3'
+  media: 'Eb2',
+  poll: 'Db2',
+  reply: 'Cb2',
+  retweet: 'Bb2',
+  tweet: 'Ab2'
 }
 
 interface Beat {
