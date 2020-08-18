@@ -1,7 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios'
 import cors from 'cors'
 import express from 'express'
-import helmet from 'helmet'
 import http from 'http'
 import path from 'path'
 import socketIo from 'socket.io'
@@ -13,7 +12,6 @@ const app = express()
 const server = http.createServer(app)
 const io = socketIo(server)
 
-app.use(helmet())
 app.use(cors())
 if (config.isProduction) {
   app.use(express.static(path.join(__dirname, '../../app/build')))
