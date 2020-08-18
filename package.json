@@ -1,0 +1,18 @@
+{
+  "name": "iora",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "build": "yarn build:app && yarn build:server",
+    "build:app": "cd ./app && yarn build",
+    "build:server": "cd ./server && yarn build",
+    "dev": "concurrently 'yarn dev:app' 'yarn dev:server'",
+    "dev:app": "cd ./app && yarn dev",
+    "dev:server": "cd ./server && yarn dev",
+    "start": "yarn build && cd ./server && yarn start"
+  },
+  "devDependencies": {
+    "concurrently": "^5.3.0"
+  }
+}
