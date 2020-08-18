@@ -98,18 +98,12 @@ const getTweetSamples = async () => {
   }
 }
 
-let receivedTweets = 0
 const forwardTweet = (data: Buffer) => {
   try {
     const dataStr = data.toString()
 
     // Don't forward heartbeats
     if (dataStr === '\r\n') {
-      return
-    }
-
-    receivedTweets++
-    if (receivedTweets % 35 !== 0) {
       return
     }
 
