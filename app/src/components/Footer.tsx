@@ -11,7 +11,7 @@ const Footer = () => (
       . The source code is available on{' '}
       <Link
         target="_blank"
-        rel="noopener"
+        rel="author noopener"
         href="https://github.com/ifvictr/iora"
       >
         GitHub
