@@ -14,7 +14,8 @@
     "dev": "concurrently 'yarn dev:app' 'yarn dev:server'",
     "dev:app": "cd ./app && yarn dev",
     "dev:server": "cd ./server && yarn dev",
-    "start": "yarn build && cd ./server && yarn start"
+    "heroku-postbuild": "yarn build",
+    "start": "cd ./server && yarn start"
   },
   "devDependencies": {
     "concurrently": "^5.3.0"
