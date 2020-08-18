@@ -51,26 +51,27 @@ const USER_FIELDS = [
   'verified'
 ]
 
+const axiosOptions: AxiosRequestConfig = {
+  method: 'GET',
+  baseURL: 'https://api.twitter.com/',
+  url: '/2/tweets/sample/stream',
+  headers: {
+    Authorization: `Bearer ${config.bearerToken}`
+  },
+  params: {
+    expansions: EXPANSIONS.join(','),
+    'media.fields': MEDIA_FIELDS.join(','),
+    'poll.fields': POLL_FIELDS.join(','),
+    'tweet.fields': TWEET_FIELDS.join(','),
+    'user.fields': USER_FIELDS.join(',')
+  },
+  responseType: 'stream',
+  timeout: 5 * 1000
+}
+
 const getTweetSamples = async () => {
-  const options: AxiosRequestConfig = {
-    method: 'GET',
-    baseURL: 'https://api.twitter.com/',
-    url: '/2/tweets/sample/stream',
-    headers: {
-      Authorization: `Bearer ${config.bearerToken}`
-    },
-    params: {
-      expansions: EXPANSIONS.join(','),
-      'media.fields': MEDIA_FIELDS.join(','),
-      'poll.fields': POLL_FIELDS.join(','),
-      'tweet.fields': TWEET_FIELDS.join(','),
-      'user.fields': USER_FIELDS.join(',')
-    },
-    responseType: 'stream',
-    timeout: 5 * 1000
-  }
   try {
-    const { data } = await axios.request(options)
+    const { data } = await axios.request(axiosOptions)
 
     console.log('Connected to Twitter stream')
     data.on('data', forwardTweet)
