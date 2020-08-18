@@ -12,7 +12,7 @@ const Footer = () => (
       <Link
         target="_blank"
         rel="noopener"
-        href="https://github.com/ifvictr/songbird"
+        href="https://github.com/ifvictr/iora"
       >
         GitHub
       </Link>

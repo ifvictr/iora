@@ -8,7 +8,7 @@ import socketIo from 'socket.io'
 import config from './config'
 
 // Start Express + Socket.IO server
-console.log('Starting Songbird…')
+console.log('Starting Iora…')
 const app = express()
 const server = http.createServer(app)
 const io = socketIo(server)
