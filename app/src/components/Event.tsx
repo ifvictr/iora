@@ -89,6 +89,7 @@ export type EventType = 'media' | 'poll' | 'reply' | 'retweet' | 'tweet'
 interface EventInfo {
   color: string
   description: (payload: Payload) => string | React.ReactElement
+  transformText: (payload: Payload) => string
 }
 
 const EVENTS: Record<EventType, EventInfo> = {
@@ -97,11 +98,13 @@ const EVENTS: Record<EventType, EventInfo> = {
     description: payload => {
       const { type } = payload.includes.media![0]
       return `posted a ${type === 'animated_gif' ? 'GIF' : type}`
-    }
+    },
+    transformText: payload => payload.data.text
   },
   poll: {
     color: 'transparent',
-    description: () => 'started a poll'
+    description: () => 'started a poll',
+    transformText: payload => payload.data.text
   },
   reply: {
     color: '#1da0f2',
@@ -160,11 +163,13 @@ const EVENTS: Record<EventType, EventInfo> = {
           )}
         </>
       )
-    }
+    },
+    transformText: payload => payload.data.text.replace(RETWEET_PATTERN, '') // Remove the RT @user prefix
   },
   tweet: {
     color: 'transparent',
-    description: () => 'tweeted'
+    description: () => 'tweeted',
+    transformText: payload => payload.data.text
   }
 }
 
@@ -174,7 +179,7 @@ interface EventProps {
 }
 
 const Event = ({ type, data: tweet }: EventProps) => {
-  const { color, description } = EVENTS[type]
+  const { color, description, transformText } = EVENTS[type]
   const sender = tweet.includes.users.find(
     user => user.id === tweet.data.author_id
   ) as User
@@ -215,7 +220,7 @@ const Event = ({ type, data: tweet }: EventProps) => {
             {description(tweet)}
           </Text>
           <Text color="#657786" mt={1}>
-            {tweet.data.text}
+            {transformText(tweet)}
           </Text>
         </Box>
       </Flex>
