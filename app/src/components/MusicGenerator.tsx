@@ -39,7 +39,7 @@ const MusicGenerator = () => {
 
       const nextBeat = beatQueueRef.current.shift() as Beat
       synthRef.current.triggerAttackRelease(nextBeat.note, nextBeat.duration)
-    }, 500)
+    }, 250)
 
     return () => {
       clearInterval(playIntervalId)
