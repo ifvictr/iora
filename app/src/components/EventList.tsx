@@ -22,7 +22,8 @@ const EventList = ({ sx, ...props }: EventListProps) => {
       }
 
       const nextPayload = payloadQueueRef.current.shift() as Payload
-      setPayloads([nextPayload, ...payloads])
+      // Don't let the total saved payloads exceed the maximum
+      setPayloads([nextPayload, ...payloads].slice(0, MAX_SAVED_PAYLOADS))
     }, 500)
 
     return () => {
@@ -47,7 +48,7 @@ const EventList = ({ sx, ...props }: EventListProps) => {
     }
 
     const newPayload = JSON.parse(data) as Payload
-    // Don't let the total saved payloads exceed the maximum
+    // Adhere to the payload queue's cap
     if (payloadQueueRef.current.length < MAX_SAVED_PAYLOADS) {
       payloadQueueRef.current.push(newPayload)
     }
