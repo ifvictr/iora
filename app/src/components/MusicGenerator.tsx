@@ -41,7 +41,7 @@ const MusicGenerator = () => {
     synthRef.current.triggerAttackRelease(nextBeat.note, nextBeat.duration)
 
     // Check for another beat to play after this one's time is up
-    setTimeout(checkForBeat, nextBeat.duration * 200)
+    setTimeout(checkForBeat, nextBeat.duration * 250)
   }
 
   // Start the check for beats to play on mount
