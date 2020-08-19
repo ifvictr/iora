@@ -5,10 +5,10 @@
     "server"
   ],
   "scripts": {
-    "build": "yarn build:app && yarn build:server",
+    "build": "yarn build:server && yarn build:app",
     "build:app": "cd ./app && yarn build",
     "build:server": "cd ./server && yarn build",
-    "dev": "concurrently 'yarn dev:app' 'yarn dev:server'",
+    "dev": "concurrently 'yarn dev:server' 'yarn dev:app'",
     "dev:app": "cd ./app && yarn dev",
     "dev:server": "cd ./server && yarn dev",
     "heroku-postbuild": "yarn build",
