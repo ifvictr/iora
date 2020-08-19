@@ -8,7 +8,7 @@
     "build": "yarn build:server && yarn build:app",
     "build:app": "yarn workspace @iora/app build",
     "build:server": "yarn workspace @iora/server build",
-    "dev": "concurrently 'yarn dev:server' 'yarn dev:app'",
+    "dev": "concurrently --kill-others-on-fail 'yarn:dev:*'",
     "dev:app": "yarn workspace @iora/app dev",
     "dev:server": "yarn workspace @iora/server dev",
     "heroku-postbuild": "yarn build",
