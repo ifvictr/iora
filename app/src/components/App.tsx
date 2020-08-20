@@ -16,7 +16,11 @@ const App = () => {
         <SocketIOProvider url="/">
           <EventVisualization />
           <EventList
-            sx={{ bottom: '20px', position: 'fixed', right: '20px' }}
+            sx={{
+              bottom: [0, '20px'],
+              position: 'fixed',
+              right: [0, '20px']
+            }}
           />
           <MusicGenerator />
         </SocketIOProvider>

@@ -64,7 +64,7 @@ const EventList = ({ sx, ...props }: EventListProps) => {
         height: '12rem',
         overflow: 'hidden',
         position: 'relative',
-        width: '32rem',
+        width: ['100%', '32rem'],
         ':after': {
           backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0), white)',
           bottom: 0,
