@@ -107,7 +107,7 @@ const EVENTS: Record<EventType, EventInfo> = {
     transformText: payload => payload.data.text
   },
   reply: {
-    color: '#1da0f2',
+    color: 'transparent',
     description: payload => {
       const recipient = payload.includes.users.find(
         user => user.id === payload.data.in_reply_to_user_id
@@ -168,7 +168,7 @@ const EVENTS: Record<EventType, EventInfo> = {
     transformText: payload => payload.data.text.replace(RETWEET_PATTERN, '') // Remove the RT @user prefix
   },
   tweet: {
-    color: 'transparent',
+    color: '#1da0f2',
     description: () => 'tweeted',
     transformText: payload => payload.data.text
   }
