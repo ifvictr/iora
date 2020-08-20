@@ -1,0 +1,120 @@
+import * as d3 from 'd3'
+import React, { useRef } from 'react'
+import { useSocket } from 'use-socketio'
+import theme from '../theme'
+import { EVENTS, Payload, getEventType } from './Event'
+
+interface SVGGroupProps {
+  radius: number
+  startingOpacity: number
+  duration: number
+  ringDuration: number
+}
+
+const getValues = (payload: Payload) => {
+  const type = getEventType(payload)
+  const values: SVGGroupProps = {
+    radius: type === 'tweet' ? 30 : 15,
+    startingOpacity: 1,
+    duration: 10000,
+    ringDuration: 5000
+  }
+
+  return values
+}
+
+const EventVisualization = () => {
+  const d3Ref = useRef<SVGSVGElement>(null)
+
+  useSocket('tweet', data => {
+    if (!d3Ref.current) {
+      return
+    }
+
+    const newPayload = JSON.parse(data) as Payload
+    const type = getEventType(newPayload)
+    const values = getValues(newPayload)
+
+    const svg = d3.select(d3Ref.current)
+    const container = svg.append('g')
+    container
+      .attr(
+        'fill',
+        EVENTS[type].color !== 'transparent' ? EVENTS[type].color : '#e6ecf0'
+      )
+      .attr(
+        'transform',
+        `translate(${Math.random() * 2000 + 1}, ${Math.random() * 1000 + 1})`
+      )
+      .transition()
+      .delay(5000)
+      .style('opacity', 0)
+      .ease(Math.sqrt)
+      .duration(values.ringDuration)
+      .remove()
+
+    const ring = container
+      .append('circle')
+      .attr('r', values.radius)
+      .attr('stroke', 'none')
+      .transition()
+      .attr('r', values.radius + 100)
+      .style('opacity', 0)
+      .ease(Math.sqrt)
+      .duration(values.ringDuration)
+      .remove()
+
+    const circle = container.append('circle')
+    circle
+      .attr('r', values.radius)
+      .style('opacity', 0.5)
+      .transition()
+      .style('opacity', 0)
+      .ease(Math.sqrt)
+      .duration(values.duration)
+      .remove()
+
+    const link = container.append('a')
+    link
+      .attr(
+        'href',
+        `https://twitter.com/${newPayload.includes.users[0].username}/status/${newPayload.data.id}`
+      )
+      .attr('target', '_blank')
+      .transition()
+      .delay(3000)
+      .style('opacity', 0)
+      .ease(Math.sqrt)
+      .duration(values.duration - 3000)
+      .remove()
+
+    const description = link
+      .append('text')
+      .text(
+        `${EVENTS[type].emoji} @${
+          newPayload.includes.users[0].username
+        } ${EVENTS[type].rawDescription(newPayload)}`
+      )
+      // .attr('fill', 'white')
+      .attr('fill', theme.colors.text)
+      .attr('text-anchor', 'middle')
+  })
+
+  return (
+    <svg
+      height="100vh"
+      width="100vw"
+      style={{
+        background:
+          'radial-gradient(rgba(0, 0, 0, 0.15) 1px, transparent 1px) 0% 0% / 24px 24px white',
+        left: 0,
+        position: 'absolute',
+        top: 0,
+        zIndex: -1
+      }}
+      ref={d3Ref}
+    />
+  )
+}
+
+export default EventVisualization
