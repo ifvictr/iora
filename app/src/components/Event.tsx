@@ -87,6 +87,7 @@ export const getEventType = (payload: Payload): EventType => {
 export type EventType = 'media' | 'poll' | 'reply' | 'retweet' | 'tweet'
 
 export interface EventInfo {
+  emoji: string
   color: string
   description: (payload: Payload) => string | React.ReactElement
   rawDescription: (payload: Payload) => string
@@ -95,6 +96,7 @@ export interface EventInfo {
 
 export const EVENTS: Record<EventType, EventInfo> = {
   media: {
+    emoji: '🖼️',
     color: 'transparent',
     description: payload => {
       const { type } = payload.includes.media![0]
@@ -107,12 +109,14 @@ export const EVENTS: Record<EventType, EventInfo> = {
     transformText: payload => payload.data.text
   },
   poll: {
+    emoji: '🗳️',
     color: 'transparent',
     description: () => 'started a poll',
     rawDescription: () => 'started a poll',
     transformText: payload => payload.data.text
   },
   reply: {
+    emoji: '💬',
     color: 'transparent',
     description: payload => {
       const recipient = payload.includes.users.find(
@@ -148,6 +152,7 @@ export const EVENTS: Record<EventType, EventInfo> = {
     transformText: payload => payload.data.text
   },
   retweet: {
+    emoji: '🔁',
     color: theme.colors.green,
     description: payload => {
       const retweetReference = payload.data.referenced_tweets!.find(
@@ -194,6 +199,7 @@ export const EVENTS: Record<EventType, EventInfo> = {
     transformText: payload => payload.data.text.replace(RETWEET_PATTERN, '') // Remove the RT @user prefix
   },
   tweet: {
+    emoji: '📢',
     color: '#1da0f2',
     description: () => 'tweeted',
     rawDescription: () => 'tweeted',
