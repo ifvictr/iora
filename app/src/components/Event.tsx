@@ -67,7 +67,7 @@ export interface User {
   verified: boolean
 }
 
-const RETWEET_PATTERN = /^RT @(.+):\s/g
+const RETWEET_PATTERN = /^RT @(.+):\s/
 export const getEventType = (payload: Payload): EventType => {
   const isRetweet = RETWEET_PATTERN.test(payload.data.text)
 
