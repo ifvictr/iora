@@ -61,7 +61,7 @@ const EventList = ({ sx, ...props }: EventListProps) => {
         boxShadow:
           'rgba(101, 119, 134, 0.2) 0px 0px 15px, rgba(101, 119, 134, 0.15) 0px 0px 3px 1px',
         borderRadius: '15px',
-        height: '16rem',
+        height: '12rem',
         overflow: 'hidden',
         position: 'relative',
         width: '32rem',
@@ -70,7 +70,7 @@ const EventList = ({ sx, ...props }: EventListProps) => {
           bottom: 0,
           content: '""',
           display: 'block',
-          height: '6rem',
+          height: '4rem',
           left: 0,
           pointerEvents: 'none',
           position: 'absolute',
