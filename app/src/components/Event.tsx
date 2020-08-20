@@ -86,13 +86,13 @@ export const getEventType = (payload: Payload): EventType => {
 
 export type EventType = 'media' | 'poll' | 'reply' | 'retweet' | 'tweet'
 
-interface EventInfo {
+export interface EventInfo {
   color: string
   description: (payload: Payload) => string | React.ReactElement
   transformText: (payload: Payload) => string
 }
 
-const EVENTS: Record<EventType, EventInfo> = {
+export const EVENTS: Record<EventType, EventInfo> = {
   media: {
     color: 'transparent',
     description: payload => {
