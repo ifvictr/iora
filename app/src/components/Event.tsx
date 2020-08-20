@@ -89,6 +89,7 @@ export type EventType = 'media' | 'poll' | 'reply' | 'retweet' | 'tweet'
 export interface EventInfo {
   color: string
   description: (payload: Payload) => string | React.ReactElement
+  rawDescription: (payload: Payload) => string
   transformText: (payload: Payload) => string
 }
 
@@ -99,11 +100,16 @@ export const EVENTS: Record<EventType, EventInfo> = {
       const { type } = payload.includes.media![0]
       return `posted a ${type === 'animated_gif' ? 'GIF' : type}`
     },
+    rawDescription: payload => {
+      const { type } = payload.includes.media![0]
+      return `posted a ${type === 'animated_gif' ? 'GIF' : type}`
+    },
     transformText: payload => payload.data.text
   },
   poll: {
     color: 'transparent',
     description: () => 'started a poll',
+    rawDescription: () => 'started a poll',
     transformText: payload => payload.data.text
   },
   reply: {
@@ -129,6 +135,14 @@ export const EVENTS: Record<EventType, EventInfo> = {
             'a tweet'
           )}
         </>
+      )
+    },
+    rawDescription: payload => {
+      const recipient = payload.includes.users.find(
+        user => user.id === payload.data.in_reply_to_user_id
+      )
+      return (
+        'replied to ' + (!!recipient ? `@${recipient.username}` : 'a tweet')
       )
     },
     transformText: payload => payload.data.text
@@ -165,11 +179,24 @@ export const EVENTS: Record<EventType, EventInfo> = {
         </>
       )
     },
+    rawDescription: payload => {
+      const retweetReference = payload.data.referenced_tweets!.find(
+        referencedTweet => referencedTweet.type === 'retweeted'
+      )
+      const originalTweet = payload.includes.tweets?.find(
+        includedTweet => includedTweet.id === retweetReference?.id
+      )
+      const author = payload.includes.users.find(
+        user => user.id === originalTweet?.author_id
+      )
+      return `retweeted ${!!author ? `@${author.username}’s tweet` : 'a tweet'}`
+    },
     transformText: payload => payload.data.text.replace(RETWEET_PATTERN, '') // Remove the RT @user prefix
   },
   tweet: {
     color: '#1da0f2',
     description: () => 'tweeted',
+    rawDescription: () => 'tweeted',
     transformText: payload => payload.data.text
   }
 }
