@@ -5,7 +5,9 @@ const theme = {
     white: '#ffffff',
     blue: '#1b95e0',
     green: '#17bf63',
-    red: '#e0245e'
+    red: '#e0245e',
+    orange: '#f45d22',
+    purple: '#794bc4'
   },
   fonts: {
     body: `system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, 'Helvetica Neue', sans-serif`,

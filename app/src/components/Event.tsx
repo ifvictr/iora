@@ -97,7 +97,7 @@ export interface EventInfo {
 export const EVENTS: Record<EventType, EventInfo> = {
   media: {
     emoji: '🖼️',
-    color: 'transparent',
+    color: theme.colors.orange,
     description: payload => {
       const { type } = payload.includes.media![0]
       return `posted a ${type === 'animated_gif' ? 'GIF' : type}`
@@ -110,7 +110,7 @@ export const EVENTS: Record<EventType, EventInfo> = {
   },
   poll: {
     emoji: '🗳️',
-    color: 'transparent',
+    color: theme.colors.purple,
     description: () => 'started a poll',
     rawDescription: () => 'started a poll',
     transformText: payload => payload.data.text
