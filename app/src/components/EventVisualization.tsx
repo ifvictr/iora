@@ -53,6 +53,7 @@ const EventVisualization = () => {
       .duration(values.ringDuration)
       .remove()
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const ring = container
       .append('circle')
       .attr('r', values.radius)
@@ -88,6 +89,7 @@ const EventVisualization = () => {
       .duration(values.duration - 3000)
       .remove()
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const description = link
       .append('text')
       .text(
