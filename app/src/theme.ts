@@ -1,5 +1,6 @@
 const theme = {
   colors: {
+    primary: '#ee9ca7',
     background: '#ffffff',
     text: '#14171a',
     white: '#ffffff',
@@ -26,7 +27,7 @@ const theme = {
       lineHeight: 1.3125
     },
     a: {
-      color: 'blue',
+      color: 'primary',
       textDecorationLine: 'none',
       ':hover': {
         textDecorationLine: 'underline'
