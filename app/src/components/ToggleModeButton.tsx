@@ -15,13 +15,12 @@ const ToggleModeButton = ({ sx, ...props }: ToggleModeButtonProps) => {
         setColorMode(colorMode === 'default' ? 'dark' : 'default')
       }}
       sx={{
-        bg: 'text',
+        bg: 'background',
         borderRadius: '9999px',
         boxShadow:
           colorMode === 'default'
             ? 'rgba(101, 119, 134, 0.2) 0px 0px 15px, rgba(101, 119, 134, 0.15) 0px 0px 3px 1px'
             : 'rgba(255, 255, 255, 0.2) 0px 0px 15px, rgba(255, 255, 255, 0.15) 0px 0px 3px 1px',
-        color: 'background',
         outline: 'none',
         ...sx
       }}
