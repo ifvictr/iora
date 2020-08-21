@@ -100,22 +100,18 @@ const getTweetSamples = async () => {
 const TWEETS_TO_WAIT = 20
 let tweetsSinceLastEmit = 0
 const forwardTweet = (data: Buffer) => {
-  try {
-    const dataStr = data.toString()
+  const dataStr = data.toString()
 
-    // Don't forward heartbeats
-    if (dataStr === '\r\n') {
-      return
-    }
-
-    tweetsSinceLastEmit++
-    if (tweetsSinceLastEmit !== TWEETS_TO_WAIT) {
-      return
-    }
-
-    io.volatile.emit('tweet', dataStr)
-    tweetsSinceLastEmit = 0
-  } catch (e) {
-    // Ignore tweets that couldn't be parsed
+  // Don't forward heartbeats
+  if (dataStr === '\r\n') {
+    return
   }
+
+  tweetsSinceLastEmit++
+  if (tweetsSinceLastEmit !== TWEETS_TO_WAIT) {
+    return
+  }
+
+  io.volatile.emit('tweet', dataStr)
+  tweetsSinceLastEmit = 0
 }
