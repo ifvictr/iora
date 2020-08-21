@@ -2,7 +2,7 @@ import React from 'react'
 import { Container, Link, Text } from 'theme-ui'
 
 const Footer = () => (
-  <Container py={4}>
+  <Container pt={4}>
     <Text>
       Made by{' '}
       <Link
