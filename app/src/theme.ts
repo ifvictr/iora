@@ -33,7 +33,8 @@ const theme = {
         textDecorationLine: 'underline'
       }
     }
-  }
+  },
+  useColorSchemeMediaQuery: true
 }
 
 export default theme
