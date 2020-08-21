@@ -18,6 +18,8 @@ const App = () => {
           <EventVisualization />
           <EventList
             sx={{
+              borderBottomLeftRadius: [0, '15px'],
+              borderBottomRightRadius: [0, '15px'],
               bottom: [0, '20px'],
               position: 'fixed',
               right: [0, '20px']
