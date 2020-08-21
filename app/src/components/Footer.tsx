@@ -8,7 +8,7 @@ const Footer = () => (
       <Link target="_blank" rel="noopener" href="https://victortruong.com">
         @ifvictr
       </Link>
-      . The source code is available on{' '}
+      . See the code behind this on{' '}
       <Link
         target="_blank"
         rel="author noopener"
