@@ -130,7 +130,7 @@ export const EVENTS: Record<EventType, EventInfo> = {
               <Link
                 target="_blank"
                 href={`https://twitter.com/${recipient.username}`}
-                sx={{ color: 'text', fontWeight: 'bold' }}
+                sx={{ color: 'inherit', fontWeight: 'bold' }}
               >
                 {recipient.name}
               </Link>
@@ -172,7 +172,7 @@ export const EVENTS: Record<EventType, EventInfo> = {
               <Link
                 target="_blank"
                 href={`https://twitter.com/${author.username}`}
-                sx={{ color: 'text', fontWeight: 'bold' }}
+                sx={{ color: 'inherit', fontWeight: 'bold' }}
               >
                 {author.name}
               </Link>
@@ -247,7 +247,7 @@ const Event = ({ type, data: tweet }: EventProps) => {
             <Link
               target="_blank"
               href={`https://twitter.com/${sender.username}`}
-              sx={{ color: 'text', fontWeight: 'bold' }}
+              sx={{ color: 'inherit', fontWeight: 'bold' }}
             >
               {sender.name}
             </Link>{' '}
