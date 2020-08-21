@@ -74,7 +74,7 @@ const getTweetSamples = async () => {
     const { data } = await axios.request(axiosOptions)
 
     console.log('Connected to Twitter stream')
-    data.on('data', forwardTweet)
+    data.on('data', emitTweet)
 
     data.on('close', () => {
       console.log(
@@ -99,7 +99,7 @@ const getTweetSamples = async () => {
 
 const TWEETS_TO_WAIT = 20
 let tweetsSinceLastEmit = 0
-const forwardTweet = (data: Buffer) => {
+const emitTweet = (data: Buffer) => {
   const dataStr = data.toString()
 
   // Don't forward heartbeats
