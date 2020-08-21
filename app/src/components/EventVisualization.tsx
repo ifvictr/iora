@@ -11,7 +11,7 @@ interface SVGGroupProps {
   ringDuration: number
 }
 
-const getValues = (payload: Payload) => {
+const getSVGGroupProps = (payload: Payload) => {
   const type = getEventType(payload)
   const values: SVGGroupProps = {
     radius: type === 'tweet' ? 30 : 15,
@@ -34,7 +34,7 @@ const EventVisualization = () => {
 
     const newPayload = JSON.parse(data) as Payload
     const type = getEventType(newPayload)
-    const values = getValues(newPayload)
+    const values = getSVGGroupProps(newPayload)
 
     const svg = d3.select(d3Ref.current)
     const container = svg.append('g')
