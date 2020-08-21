@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Slide } from 'react-reveal'
-import { Box, Heading, SxStyleProp } from 'theme-ui'
+import { Box, Heading, SxStyleProp, useColorMode } from 'theme-ui'
 import { useSocket } from 'use-socketio'
 import Event, { Payload, getEventType } from './Event'
 
@@ -14,6 +14,7 @@ const EventList = ({ sx, ...props }: EventListProps) => {
   const [isConnected, setConnected] = useState(false)
   const [payloads, setPayloads] = useState<Payload[]>([])
   const payloadQueueRef = useRef<Payload[]>([])
+  const [colorMode] = useColorMode()
 
   useEffect(() => {
     const addIntervalId = setInterval(() => {
@@ -59,14 +60,19 @@ const EventList = ({ sx, ...props }: EventListProps) => {
       sx={{
         bg: 'background',
         boxShadow:
-          'rgba(101, 119, 134, 0.2) 0px 0px 15px, rgba(101, 119, 134, 0.15) 0px 0px 3px 1px',
+          colorMode === 'default'
+            ? 'rgba(101, 119, 134, 0.2) 0px 0px 15px, rgba(101, 119, 134, 0.15) 0px 0px 3px 1px'
+            : 'rgba(255, 255, 255, 0.2) 0px 0px 15px, rgba(255, 255, 255, 0.15) 0px 0px 3px 1px',
         borderRadius: '15px',
         height: '12rem',
         overflow: 'hidden',
         position: 'relative',
         width: ['100%', '32rem'],
         ':after': {
-          backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0), white)',
+          backgroundImage:
+            colorMode === 'default'
+              ? 'linear-gradient(rgba(255, 255, 255, 0), white)'
+              : 'linear-gradient(rgba(0, 0, 0, 0), black)',
           bottom: 0,
           content: '""',
           display: 'block',
@@ -77,7 +83,7 @@ const EventList = ({ sx, ...props }: EventListProps) => {
           transition: 'background 0.5s ease, opacity 0.5s ease',
           right: 0,
           ...(!isConnected && {
-            background: 'white',
+            background: colorMode === 'default' ? 'white' : 'black',
             height: '100%',
             opacity: 0.5
           })
@@ -90,7 +96,8 @@ const EventList = ({ sx, ...props }: EventListProps) => {
         py="10px"
         px="15px"
         sx={{
-          borderBottom: '1px solid #e6ecf0',
+          borderBottom:
+            colorMode === 'default' ? '1px solid #e6ecf0' : '1px solid #2f3336',
           position: 'relative'
         }}
       >

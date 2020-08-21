@@ -7,6 +7,7 @@ import EventVisualization from './EventVisualization'
 import Footer from './Footer'
 import Masthead from './Masthead'
 import MusicGenerator from './MusicGenerator'
+import ToggleModeButton from './ToggleModeButton'
 
 const App = () => {
   return (
@@ -24,6 +25,13 @@ const App = () => {
           />
           <MusicGenerator />
         </SocketIOProvider>
+        <ToggleModeButton
+          sx={{
+            position: 'fixed',
+            right: '20px',
+            top: '20px'
+          }}
+        />
         <Footer />
       </Container>
     </ThemeProvider>

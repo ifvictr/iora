@@ -7,7 +7,13 @@ const theme = {
     green: '#17bf63',
     red: '#e0245e',
     orange: '#f45d22',
-    purple: '#794bc4'
+    purple: '#794bc4',
+    modes: {
+      dark: {
+        background: '#000000',
+        text: '#ffffff'
+      }
+    }
   },
   fonts: {
     body: `system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, 'Helvetica Neue', sans-serif`,

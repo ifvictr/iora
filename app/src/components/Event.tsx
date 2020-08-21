@@ -1,5 +1,5 @@
 import React from 'react'
-import { Avatar, Box, Flex, Link, Text } from 'theme-ui'
+import { Avatar, Box, Flex, Link, Text, useColorMode } from 'theme-ui'
 import theme from '../theme'
 
 export interface Payload {
@@ -213,6 +213,8 @@ interface EventProps {
 }
 
 const Event = ({ type, data: tweet }: EventProps) => {
+  const [colorMode] = useColorMode()
+
   const { color, description, transformText } = EVENTS[type]
   const sender = tweet.includes.users.find(
     user => user.id === tweet.data.author_id
@@ -223,7 +225,8 @@ const Event = ({ type, data: tweet }: EventProps) => {
       py={2}
       px={2}
       sx={{
-        borderBottom: '1px solid #e6ecf0',
+        borderBottom:
+          colorMode === 'default' ? '1px solid #e6ecf0' : '1px solid #2f3336',
         boxShadow: `inset 2px 0 ${color}`
       }}
     >

@@ -1,7 +1,7 @@
 import * as d3 from 'd3'
 import React, { useRef } from 'react'
+import { Box, useColorMode } from 'theme-ui'
 import { useSocket } from 'use-socketio'
-import theme from '../theme'
 import { EVENTS, Payload, getEventType } from './Event'
 
 interface SVGGroupProps {
@@ -24,7 +24,8 @@ const getValues = (payload: Payload) => {
 }
 
 const EventVisualization = () => {
-  const d3Ref = useRef<SVGSVGElement>(null)
+  const d3Ref = useRef<HTMLDivElement>(null)
+  const [colorMode] = useColorMode()
 
   useSocket('tweet', data => {
     if (!d3Ref.current) {
@@ -97,22 +98,26 @@ const EventVisualization = () => {
           newPayload.includes.users[0].username
         } ${EVENTS[type].rawDescription(newPayload)}`
       )
-      // .attr('fill', 'white')
-      .attr('fill', theme.colors.text)
       .attr('text-anchor', 'middle')
   })
 
   return (
-    <svg
-      height="100%"
-      width="100%"
-      style={{
+    <Box
+      as="svg"
+      sx={{
         background:
-          'radial-gradient(rgba(0, 0, 0, 0.15) 1px, transparent 1px) 0% 0% / 24px 24px white',
+          colorMode === 'default'
+            ? 'radial-gradient(rgba(0, 0, 0, 0.15) 1px, transparent 1px) 0% 0% / 24px 24px white'
+            : 'radial-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px) 0% 0% / 24px 24px black',
+        height: '100%',
         left: 0,
         position: 'absolute',
         top: 0,
-        zIndex: -1
+        width: '100%',
+        zIndex: -1,
+        '& text': {
+          fill: theme => theme.colors.text
+        }
       }}
       ref={d3Ref}
     />
