@@ -45,7 +45,9 @@ const EventVisualization = () => {
       )
       .attr(
         'transform',
-        `translate(${Math.random() * 2000 + 1}, ${Math.random() * 1000 + 1})`
+        `translate(${Math.random() * window.innerWidth}, ${
+          Math.random() * window.innerHeight
+        })`
       )
       .transition()
       .delay(5000)
