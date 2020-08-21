@@ -104,8 +104,8 @@ const EventVisualization = () => {
 
   return (
     <svg
-      height="100vh"
-      width="100vw"
+      height="100%"
+      width="100%"
       style={{
         background:
           'radial-gradient(rgba(0, 0, 0, 0.15) 1px, transparent 1px) 0% 0% / 24px 24px white',
