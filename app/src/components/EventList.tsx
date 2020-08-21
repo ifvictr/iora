@@ -67,6 +67,7 @@ const EventList = ({ sx, ...props }: EventListProps) => {
         height: '12rem',
         overflow: 'hidden',
         position: 'relative',
+        transition: 'background 0.5s ease, box-shadow 0.5s ease',
         width: ['100%', '32rem'],
         ':after': {
           backgroundImage:
@@ -98,7 +99,8 @@ const EventList = ({ sx, ...props }: EventListProps) => {
         sx={{
           borderBottom:
             colorMode === 'default' ? '1px solid #e6ecf0' : '1px solid #2f3336',
-          position: 'relative'
+          position: 'relative',
+          transition: 'border-color 0.5s ease'
         }}
       >
         <Heading as="h2" sx={{ fontSize: '19px' }}>

@@ -22,6 +22,7 @@ const ToggleModeButton = ({ sx, ...props }: ToggleModeButtonProps) => {
             ? 'rgba(101, 119, 134, 0.2) 0px 0px 15px, rgba(101, 119, 134, 0.15) 0px 0px 3px 1px'
             : 'rgba(255, 255, 255, 0.2) 0px 0px 15px, rgba(255, 255, 255, 0.15) 0px 0px 3px 1px',
         outline: 'none',
+        transition: 'background 0.5s ease, box-shadow 0.5s ease',
         ...sx
       }}
       {...props}

@@ -113,10 +113,12 @@ const EventVisualization = () => {
         left: 0,
         position: 'absolute',
         top: 0,
+        transition: 'background 0.5s ease',
         width: '100%',
         zIndex: -1,
         '& text': {
-          fill: theme => theme.colors.text
+          fill: theme => theme.colors.text,
+          transition: 'fill 0.5s ease'
         }
       }}
       ref={d3Ref}

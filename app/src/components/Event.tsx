@@ -227,7 +227,8 @@ const Event = ({ type, data: tweet }: EventProps) => {
       sx={{
         borderBottom:
           colorMode === 'default' ? '1px solid #e6ecf0' : '1px solid #2f3336',
-        boxShadow: `inset 2px 0 ${color}`
+        boxShadow: `inset 2px 0 ${color}`,
+        transition: 'border-color 0.5s ease'
       }}
     >
       <Flex
