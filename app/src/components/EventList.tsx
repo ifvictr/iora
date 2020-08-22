@@ -4,7 +4,7 @@ import { Box, Heading, SxStyleProp, useColorMode } from 'theme-ui'
 import { useSocket } from 'use-socketio'
 import Event, { Payload, getEventType } from './Event'
 
-const MAX_SAVED_PAYLOADS = 500
+const MAX_SAVED_PAYLOADS = 50
 
 export interface EventListProps {
   sx?: SxStyleProp
