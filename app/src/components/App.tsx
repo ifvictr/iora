@@ -12,30 +12,30 @@ import ToggleModeButton from './ToggleModeButton'
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
+      <ToggleModeButton
+        sx={{
+          position: 'fixed',
+          right: '20px',
+          top: '20px'
+        }}
+      />
       <Container py={3} px={2} sx={{ maxWidth: '64rem' }}>
         <Masthead />
-        <SocketIOProvider url="/">
-          <EventVisualization />
-          <EventList
-            sx={{
-              borderBottomLeftRadius: [0, '15px'],
-              borderBottomRightRadius: [0, '15px'],
-              bottom: [0, '20px'],
-              position: 'fixed',
-              right: [0, '20px']
-            }}
-          />
-          <MusicGenerator />
-        </SocketIOProvider>
-        <ToggleModeButton
-          sx={{
-            position: 'fixed',
-            right: '20px',
-            top: '20px'
-          }}
-        />
         <Footer />
       </Container>
+      <SocketIOProvider url="/">
+        <EventList
+          sx={{
+            borderBottomLeftRadius: [0, '15px'],
+            borderBottomRightRadius: [0, '15px'],
+            bottom: [0, '20px'],
+            position: 'fixed',
+            right: [0, '20px']
+          }}
+        />
+        <EventVisualization />
+        <MusicGenerator />
+      </SocketIOProvider>
     </ThemeProvider>
   )
 }
