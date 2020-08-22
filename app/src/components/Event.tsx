@@ -131,6 +131,9 @@ export const EVENTS: Record<EventType, EventInfo> = {
                 target="_blank"
                 href={`https://twitter.com/${recipient.username}`}
                 sx={{ color: 'inherit', fontWeight: 'bold' }}
+                onClick={e => {
+                  e.stopPropagation()
+                }}
               >
                 {recipient.name}
               </Link>
@@ -173,6 +176,9 @@ export const EVENTS: Record<EventType, EventInfo> = {
                 target="_blank"
                 href={`https://twitter.com/${author.username}`}
                 sx={{ color: 'inherit', fontWeight: 'bold' }}
+                onClick={e => {
+                  e.stopPropagation()
+                }}
               >
                 {author.name}
               </Link>
@@ -259,17 +265,15 @@ const Event = ({ type, data: tweet }: EventProps) => {
             sx={{ float: 'left' }} // Prevent alt text from overflowing
           />
         </Box>
-        <Box
-          ml={2}
-          onClick={e => {
-            e.stopPropagation()
-          }}
-        >
+        <Box ml={2}>
           <Text sx={{ overflowWrap: 'break-word' }}>
             <Link
               target="_blank"
               href={`https://twitter.com/${sender.username}`}
               sx={{ color: 'inherit', fontWeight: 'bold' }}
+              onClick={e => {
+                e.stopPropagation()
+              }}
             >
               {sender.name}
             </Link>{' '}
