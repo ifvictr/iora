@@ -1,4 +1,5 @@
-import { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import { Flex, useColorMode } from 'theme-ui'
 import * as tone from 'tone'
 import { useSocket } from 'use-socketio'
 import { EventType, Payload, getEventType } from './Event'
@@ -30,8 +31,14 @@ const getBeat = (payload: Payload): Beat => {
 const MusicGenerator = () => {
   const synthRef = useRef(new tone.Synth().toDestination())
   const beatQueueRef = useRef<Beat[]>([])
+  const [isReady, setReady] = useState(false)
+  const [colorMode] = useColorMode()
 
   const checkForBeat = () => {
+    if (!isReady) {
+      return
+    }
+
     if (beatQueueRef.current.length === 0) {
       setTimeout(checkForBeat, 1000) // Check for a new beat in one second
       return
@@ -44,15 +51,55 @@ const MusicGenerator = () => {
     setTimeout(checkForBeat, nextBeat.duration * 250)
   }
 
+  // Get the user to click so we can start playing audio
+  useEffect(() => {
+    document.addEventListener(
+      'click',
+      async () => {
+        setReady(true)
+        await tone.start()
+      },
+      { once: true }
+    )
+  })
+
   // Start the check for beats to play on mount
   useEffect(checkForBeat)
 
   useSocket('tweet', data => {
+    if (!isReady) {
+      return
+    }
+
     const newPayload = JSON.parse(data) as Payload
     beatQueueRef.current.push(getBeat(newPayload))
   })
 
-  return null
+  if (isReady) {
+    return null
+  }
+
+  return (
+    <Flex
+      sx={{
+        alignItems: 'center',
+        background:
+          colorMode === 'default'
+            ? 'rgba(255, 255, 255, 0.75)'
+            : 'rgba(0, 0, 0, 0.75)',
+        cursor: 'pointer',
+        fontWeight: 'bold',
+        height: '100vh',
+        justifyContent: 'center',
+        left: 0,
+        position: 'fixed',
+        top: 0,
+        width: '100vw'
+      }}
+    >
+      Click anywhere to start the music.
+    </Flex>
+  )
 }
 
 export default MusicGenerator
