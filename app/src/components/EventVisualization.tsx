@@ -86,10 +86,10 @@ const EventVisualization = () => {
       )
       .attr('target', '_blank')
       .transition()
-      .delay(3000)
+      .delay(2500)
       .style('opacity', 0)
       .ease(Math.sqrt)
-      .duration(values.duration - 3000)
+      .duration(values.duration - 2500)
       .remove()
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
