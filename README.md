@@ -14,7 +14,7 @@
 Iora is composed of three components:
 
 1. A **Twitter app** registered through the Twitter Developer Portal, which is used to access data from the platform
-2. A **Node.js WebSockets server** which interfaces with Twitter’s stream API via a long-lived HTTP connection. Received messages are re-broadcasted to all connected clients as WebSocket messages. This is necessary because Twitter only allows one concurrent connection per registered app.
+2. A **Node.js WebSockets server** which interfaces with Twitter’s stream API via a long-lived HTTP connection. Received messages are re-broadcasted to all connected clients as WebSocket messages. This is necessary because Twitter restricts apps to one concurrent connection.
 3. A **React.js frontend** for music generation and displaying received data
 
 ### Creating the Twitter app
