@@ -149,7 +149,10 @@ const EventVisualization = ({ sx, ...props }: EventVisualizationProps) => {
         width: '100%',
         '& text': {
           fill: theme => theme.colors.text,
-          transition: 'fill 0.5s ease'
+          transition: 'fill 0.5s ease',
+          ':hover': {
+            textDecoration: 'underline'
+          }
         },
         ...sx
       }}
