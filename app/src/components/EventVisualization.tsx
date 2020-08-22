@@ -41,7 +41,7 @@ const getSVGGroupProps = (payload: Payload) => {
 
   const values: SVGGroupProps = {
     radius: (isNewTweet ? 30 : 15) * followerMultipler,
-    duration: isNewTweet ? 10000 : 7500,
+    duration: isNewTweet ? 15000 : 7500,
     ringRadius: 75 * followerMultipler,
     ringDuration: isNewTweet ? 4000 : 2000
   }
