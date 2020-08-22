@@ -81,6 +81,7 @@ const MusicGenerator = () => {
 
   return (
     <Flex
+      px={2}
       sx={{
         alignItems: 'center',
         background:
@@ -93,11 +94,12 @@ const MusicGenerator = () => {
         justifyContent: 'center',
         left: 0,
         position: 'fixed',
+        textAlign: 'center',
         top: 0,
         width: '100vw'
       }}
     >
-      Click anywhere to start the music.
+      Click anywhere to start the music. Don’t forget to turn off silent mode!
     </Flex>
   )
 }
