@@ -33,7 +33,7 @@ const App = () => {
             right: [0, '20px']
           }}
         />
-        <EventVisualization />
+        <EventVisualization sx={{ zIndex: -1 }} />
         <MusicGenerator />
       </SocketIOProvider>
     </ThemeProvider>

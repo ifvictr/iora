@@ -1,6 +1,6 @@
 import * as d3 from 'd3'
 import React, { useRef } from 'react'
-import { Box, useColorMode } from 'theme-ui'
+import { Box, SxStyleProp, useColorMode } from 'theme-ui'
 import { useSocket } from 'use-socketio'
 import { EVENTS, Payload, User, getEventType } from './Event'
 
@@ -49,7 +49,11 @@ const getSVGGroupProps = (payload: Payload) => {
   return values
 }
 
-const EventVisualization = () => {
+interface EventVisualizationProps {
+  sx?: SxStyleProp
+}
+
+const EventVisualization = ({ sx, ...props }: EventVisualizationProps) => {
   const d3Ref = useRef<HTMLDivElement>(null)
   const [colorMode] = useColorMode()
 
@@ -143,13 +147,14 @@ const EventVisualization = () => {
         top: 0,
         transition: 'background 0.5s ease',
         width: '100%',
-        zIndex: -1,
         '& text': {
           fill: theme => theme.colors.text,
           transition: 'fill 0.5s ease'
-        }
+        },
+        ...sx
       }}
       ref={d3Ref}
+      {...props}
     />
   )
 }
