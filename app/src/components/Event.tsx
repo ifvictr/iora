@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { Avatar, Box, Flex, Link, Text, useColorMode } from 'theme-ui'
 import theme from '../theme'
 
@@ -219,6 +219,14 @@ const Event = ({ type, data: tweet }: EventProps) => {
   const sender = tweet.includes.users.find(
     user => user.id === tweet.data.author_id
   ) as User
+
+  const openTweet = useCallback(() => {
+    window.open(
+      `https://twitter.com/${sender.username}/status/${tweet.data.id}`,
+      '_blank'
+    )
+  }, [sender.username, tweet.data.id])
+
   return (
     <Box
       as="li"
@@ -228,8 +236,13 @@ const Event = ({ type, data: tweet }: EventProps) => {
         borderBottom:
           colorMode === 'default' ? '1px solid #e6ecf0' : '1px solid #2f3336',
         boxShadow: `inset 2px 0 ${color}`,
-        transition: 'border-color 0.5s ease'
+        cursor: 'pointer',
+        transition: 'background 0.5s ease, border-color 0.5s ease',
+        ':hover': {
+          bg: colorMode === 'default' ? '#f5f8fa' : '#15181c'
+        }
       }}
+      onClick={openTweet}
     >
       <Flex
         sx={{
@@ -246,7 +259,12 @@ const Event = ({ type, data: tweet }: EventProps) => {
             sx={{ float: 'left' }} // Prevent alt text from overflowing
           />
         </Box>
-        <Box ml={2}>
+        <Box
+          ml={2}
+          onClick={e => {
+            e.stopPropagation()
+          }}
+        >
           <Text sx={{ overflowWrap: 'break-word' }}>
             <Link
               target="_blank"
