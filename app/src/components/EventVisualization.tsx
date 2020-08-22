@@ -2,22 +2,48 @@ import * as d3 from 'd3'
 import React, { useRef } from 'react'
 import { Box, useColorMode } from 'theme-ui'
 import { useSocket } from 'use-socketio'
-import { EVENTS, Payload, getEventType } from './Event'
+import { EVENTS, Payload, User, getEventType } from './Event'
 
 interface SVGGroupProps {
   radius: number
-  startingOpacity: number
   duration: number
+  ringRadius: number
   ringDuration: number
+}
+
+const getFollowerMultiplier = (followerCount: number) => {
+  if (followerCount >= Math.pow(10, 7)) {
+    // 10 million followers and above
+    return 6
+  } else if (followerCount >= Math.pow(10, 6)) {
+    // Between 1 million followers and 9,999,999 followers
+    return 4
+  } else if (followerCount >= Math.pow(10, 5)) {
+    // Between 100k and 999,999 followers
+    return 2
+  } else if (followerCount >= Math.pow(10, 4)) {
+    // Between 10k and 99,999 followers
+    return 1.25
+  }
+
+  return 1
 }
 
 const getSVGGroupProps = (payload: Payload) => {
   const type = getEventType(payload)
+  const isNewTweet = type === 'tweet'
+  const sender = payload.includes.users.find(
+    user => user.id === payload.data.author_id
+  ) as User
+  const followerMultipler = getFollowerMultiplier(
+    sender.public_metrics.followers_count
+  )
+
   const values: SVGGroupProps = {
-    radius: type === 'tweet' ? 30 : 15,
-    startingOpacity: 1,
-    duration: 10000,
-    ringDuration: 5000
+    radius: (isNewTweet ? 30 : 15) * followerMultipler,
+    duration: isNewTweet ? 10000 : 7500,
+    ringRadius: 75 * followerMultipler,
+    ringDuration: isNewTweet ? 4000 : 2000
   }
 
   return values
@@ -62,7 +88,7 @@ const EventVisualization = () => {
       .attr('r', values.radius)
       .attr('stroke', 'none')
       .transition()
-      .attr('r', values.radius + 100)
+      .attr('r', values.ringRadius)
       .style('opacity', 0)
       .ease(Math.sqrt)
       .duration(values.ringDuration)
