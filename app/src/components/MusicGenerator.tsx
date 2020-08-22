@@ -53,11 +53,6 @@ const MusicGenerator = () => {
 
   // Get the user to click so we can start playing audio
   useEffect(() => {
-    // Prevent any possibility of audio overlaps
-    if (isReady) {
-      return
-    }
-
     document.addEventListener(
       'click',
       async () => {
@@ -66,10 +61,9 @@ const MusicGenerator = () => {
       },
       { once: true }
     )
-  })
+  }, [])
 
-  // Start the check for beats to play on mount
-  useEffect(checkForBeat)
+  useEffect(checkForBeat, [isReady])
 
   useSocket('tweet', data => {
     if (!isReady) {
