@@ -4,13 +4,12 @@ import { Box, Heading, SxStyleProp, useColorMode } from 'theme-ui'
 import { useSocket } from 'use-socketio'
 import Event, { Payload, getEventType } from './Event'
 
-const MAX_SAVED_PAYLOADS = 50
-
 export interface EventListProps {
+  maxEvents?: number
   sx?: SxStyleProp
 }
 
-const EventList = ({ sx, ...props }: EventListProps) => {
+const EventList = ({ maxEvents = 50, sx, ...props }: EventListProps) => {
   const [isConnected, setConnected] = useState(false)
   const [payloads, setPayloads] = useState<Payload[]>([])
   const payloadQueueRef = useRef<Payload[]>([])
@@ -24,13 +23,13 @@ const EventList = ({ sx, ...props }: EventListProps) => {
 
       const nextPayload = payloadQueueRef.current.shift() as Payload
       // Don't let the total saved payloads exceed the maximum
-      setPayloads([nextPayload, ...payloads].slice(0, MAX_SAVED_PAYLOADS))
+      setPayloads([nextPayload, ...payloads].slice(0, maxEvents))
     }, 500)
 
     return () => {
       clearInterval(addIntervalId)
     }
-  }, [payloads])
+  }, [maxEvents, payloads])
 
   useSocket('connect', () => {
     setConnected(true)
@@ -50,7 +49,7 @@ const EventList = ({ sx, ...props }: EventListProps) => {
 
     const newPayload = JSON.parse(data) as Payload
     // Adhere to the payload queue's cap
-    if (payloadQueueRef.current.length < MAX_SAVED_PAYLOADS) {
+    if (payloadQueueRef.current.length < maxEvents) {
       payloadQueueRef.current.push(newPayload)
     }
   })
