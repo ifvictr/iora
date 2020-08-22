@@ -56,6 +56,11 @@ const MusicGenerator = () => {
     document.addEventListener(
       'click',
       async () => {
+        // Prevent any possibility of audio overlaps
+        if (isReady) {
+          return
+        }
+
         setReady(true)
         await tone.start()
       },
