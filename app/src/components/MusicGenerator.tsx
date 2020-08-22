@@ -53,14 +53,14 @@ const MusicGenerator = () => {
 
   // Get the user to click so we can start playing audio
   useEffect(() => {
+    // Prevent any possibility of audio overlaps
+    if (isReady) {
+      return
+    }
+
     document.addEventListener(
       'click',
       async () => {
-        // Prevent any possibility of audio overlaps
-        if (isReady) {
-          return
-        }
-
         setReady(true)
         await tone.start()
       },
