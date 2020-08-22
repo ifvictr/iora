@@ -1,0 +1,20 @@
+{
+  "name": "iora",
+  "description": "Listen to music generated from new tweets on Twitter",
+  "logo": "https://files.ifvictr.com/2020/08/iora.png",
+  "repository": "https://github.com/ifvictr/iora",
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "env": {
+    "PUBLIC_URL": {
+      "description": "The URL to serve the React app’s resources from. Will be prepended to all built assets.",
+      "required": false
+    },
+    "TWITTER_BEARER_TOKEN": {
+      "description": "Bearer token obtained from an app created through Twitter’s Developer portal. Must have V2 access."
+    }
+  }
+}

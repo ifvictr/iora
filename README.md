@@ -5,6 +5,10 @@
     Listen to music generated from new tweets on Twitter.
 </p>
 
+## Deploy
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
 ## License
 
 [MIT License](LICENSE.txt)
