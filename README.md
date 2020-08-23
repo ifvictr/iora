@@ -5,6 +5,8 @@
     Listen to music generated from new tweets on Twitter.
 </p>
 
+![iora screenshot](https://files.ifvictr.com/2020/08/iora_screenshot.png)
+
 Iora is inspired by [@debugger22](https://github.com/debugger22)’s [GitHub Audio](https://github.com/debugger22/github-audio). I had it playing in the background at one point while working on this. 😄
 
 ## Deploy
