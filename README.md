@@ -9,6 +9,10 @@
 
 Iora is inspired by [@debugger22](https://github.com/debugger22)’s [GitHub Audio](https://github.com/debugger22/github-audio). I had it playing in the background at one point while working on this. 😄
 
+## How it works
+
+Each incoming tweet is converted into a note and duration pair. There are five different types a tweet can be classified as: new tweet, retweet, reply, poll, and media (images, videos, GIFs), and a note is assigned according to that. The duration is calculated by dividing the tweet length by 70 (the amount of characters per fourth of a tweet at max length).
+
 ## Deploy
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
