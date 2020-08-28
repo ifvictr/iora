@@ -54,6 +54,7 @@ cd iora
 # Install dependencies
 yarn
 # Start Iora in production! This will build the source files and then run them.
+yarn build
 yarn start
 # Or, if you need to run it in development mode instead. This will start both the backend and frontend and run them concurrently.
 yarn dev
