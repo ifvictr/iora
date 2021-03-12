@@ -23,7 +23,7 @@ const App = () => {
         <Masthead />
         <Footer />
       </Container>
-      <SocketIOProvider url="/">
+      <SocketIOProvider url={process.env.REACT_APP_API_URL || '/'}>
         <EventList
           sx={{
             borderBottomLeftRadius: [0, '15px'],
